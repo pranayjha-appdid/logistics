@@ -6,8 +6,7 @@ import 'package:logistics/views/base/common_button.dart';
 
 import '../../../generated/assets.dart';
 import '../../../services/input_decoration.dart';
-import '../Home_Screen/dshboard.dart';
-import '../Home_Screen/home_screen.dart';
+import '../DashBoard/dashboard.dart';
 
 class RegisterUserPage extends StatefulWidget {
   const RegisterUserPage({super.key});
@@ -245,7 +244,8 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                   alignment: Alignment.bottomCenter,
                   child: CustomButton(
                     onTap: () {
-                      Navigator.pushReplacement(context, getCustomRoute(child:Dshboard()));
+                      Navigator.pushReplacement(
+                          context, getCustomRoute(child: Dashboard()));
                     },
                     child: Text(
                       "Continue",

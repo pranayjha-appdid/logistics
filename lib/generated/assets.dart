@@ -9,6 +9,12 @@ class Assets {
   static const String registerusersvg = 'assets/images/registerusersvg.svg';
   static const String locationsuffix1 = 'assets/images/locationsuffix.svg';
   static const String locationsuffix2 = 'assets/images/locationsuffix2.svg';
+  static const String two_wheeler = 'assets/images/two_wheeler.png';
+  static const String truck = 'assets/images/truck.png';
+  static const String packer_and_mover = 'assets/images/packer_and_mover.png';
+  static const String goods = 'assets/images/goods.png';
+  static const String user = 'assets/images/user.png';
+
 
 
 

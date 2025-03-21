@@ -101,7 +101,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               ),
               SizedBox(height: 5),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
                 child: Text(

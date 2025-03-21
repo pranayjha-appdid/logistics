@@ -86,22 +86,16 @@ class CustomTheme {
         color: textSecondary,
         fontSize: 17.0,
       ),
-      headlineSmall: GoogleFonts.poppins(
-
-      ),
-      displayLarge: GoogleFonts.poppins(
-          fontSize: 27,
-          fontWeight: FontWeight.w600
-      ),
+      headlineSmall: GoogleFonts.poppins(),
+      displayLarge:
+          GoogleFonts.poppins(fontSize: 27, fontWeight: FontWeight.w600),
       displayMedium: GoogleFonts.poppins(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-
       ),
       displaySmall: GoogleFonts.poppins(
         fontSize: 12,
         fontWeight: FontWeight.w400,
-
       ),
       titleLarge: GoogleFonts.poppins(),
       titleMedium: GoogleFonts.poppins(),
