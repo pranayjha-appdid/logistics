@@ -97,30 +97,26 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 50),
-
               CustomButton(
                 onTap: () {
-                  if(_phoneController.text.length==10){
+                  if (_phoneController.text.length == 10) {
                     Navigator.push(
                       context,
                       getCustomRoute(child: OtpVerificationPage()),
                     );
-                  }
-                  else{
+                  } else {
                     Fluttertoast.showToast(
                         msg: "Enter Correct Mobile Number",
                         toastLength: Toast.LENGTH_SHORT,
                         timeInSecForIosWeb: 1,
                         backgroundColor: Colors.white,
                         textColor: Colors.black,
-                        fontSize: 16.0
-                    );
+                        fontSize: 16.0);
                   }
-
                 },
                 child: Text(
                   "Next",
-                  style: TextStyle(color: Colors.white,fontSize: 14),
+                  style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               )
             ],

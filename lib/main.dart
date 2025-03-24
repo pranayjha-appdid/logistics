@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:logistics/services/constants.dart';
+import 'package:logistics/services/init.dart';
 import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/screens/splash_screen/splash_screen.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -8,7 +9,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Init().initialize();
+  await Init().initialize();
   runApp(const MyApp());
 }
 

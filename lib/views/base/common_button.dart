@@ -101,7 +101,7 @@ class CustomButton extends StatelessWidget {
                     child: Text(
                       title!,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
+                      style: GoogleFonts.lato(
                         color: Colors.white,
                         fontSize: fontSize,
                       ),

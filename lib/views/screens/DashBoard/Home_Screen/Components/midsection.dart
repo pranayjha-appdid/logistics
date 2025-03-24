@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/generated/assets.dart';
+import 'package:logistics/services/route_helper.dart';
+
+import '../Packers_And_Movers/packers_and_mover_page.dart';
 
 class MidSection extends StatefulWidget {
   const MidSection({super.key});
@@ -70,48 +73,53 @@ class _MidSectionState extends State<MidSection> {
           type: "Truck",
           imagepath: Assets.truck,
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: const Color(0xffFFA538),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 4,
-                offset: Offset(2, 2),
-              ),
-            ],
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                right: 0,
-                top: 10,
-                left: 60,
-                bottom: 10,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    Assets.packer_and_mover,
-                    fit: BoxFit.contain,
-                  ),
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, getCustomRoute(child: StepperExample()));
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: const Color(0xffFFA538),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 4,
+                  offset: Offset(2, 2),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Packers & \nMovers",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
+              ],
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  right: 0,
+                  top: 10,
+                  left: 60,
+                  bottom: 10,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      Assets.packer_and_mover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Packers & \nMovers",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         choosetransporttype(

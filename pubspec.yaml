@@ -54,6 +54,7 @@ dependencies:
   flutter_svg:
   pinput: ^5.0.1
   font_awesome_flutter:
+  easy_stepper: ^0.8.5+1
 
 dev_dependencies:
   flutter_test:

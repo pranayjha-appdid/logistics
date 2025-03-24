@@ -28,6 +28,8 @@ class AuthController extends GetxController implements GetxService {
   bool get isLoading => _isLoading;
   bool get acceptTerms => _acceptTerms;
 
+
+
   Future<ResponseModel> login(String? phone, {String? otp}) async {
     ResponseModel responseModel;
     log("response.body.toString()${AppConstants.baseUrl}${AppConstants.loginUri}", name: "login");

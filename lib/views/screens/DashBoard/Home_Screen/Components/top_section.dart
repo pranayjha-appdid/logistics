@@ -161,9 +161,9 @@ class _TopSectionState extends State<TopSection> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context, getCustomRoute(child: PickUpDetailsPage()));
-
+                onTap: () {
+                  Navigator.push(
+                      context, getCustomRoute(child: PickUpDetailsPage()));
                 },
                 child: LocationContainerWidget(
                   iconColor: Color(0xff00C060),
@@ -191,7 +191,7 @@ class _TopSectionState extends State<TopSection> {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(context, getCustomRoute(child: DropDetails()));
                 },
                 child: LocationContainerWidget(
