@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:logistics/services/route_helper.dart';
 import '../../../../generated/assets.dart';
+import 'booking_details.dart';
 
 class PackerAndMoverBookings extends StatefulWidget {
   const PackerAndMoverBookings({super.key});
@@ -218,22 +220,27 @@ class _PackerAndMoverBookingsState extends State<PackerAndMoverBookings> {
                                   ],
                                 ),
                                 Spacer(),
-                                Container(
-                                  width: 120,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffF39B04),
-                                    borderRadius: BorderRadius.circular(10),
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context, getCustomRoute(child: BookingDetails()));
+                                  },
+                                  child: Container(
+                                    width: 120,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffF39B04),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                        child: Text("Track Order",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall
+                                                ?.copyWith(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
                                   ),
-                                  child: Center(
-                                      child: Text("Track Order",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(
-                                                  fontSize: 15,
-                                                  fontWeight:
-                                                      FontWeight.bold))),
                                 )
                               ],
                             )
