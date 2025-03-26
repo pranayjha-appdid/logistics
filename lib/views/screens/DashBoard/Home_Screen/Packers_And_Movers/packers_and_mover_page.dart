@@ -1,5 +1,7 @@
+import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:logistics/views/base/common_button.dart';
+import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/done.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/home_screen.dart';
 import 'package:logistics/views/screens/DashBoard/dashboard.dart';
 import 'moving_details.dart';
@@ -10,7 +12,40 @@ class StepperExample extends StatefulWidget {
 }
 
 class _StepperExampleState extends State<StepperExample> {
+  int activeStep = 0;
+
+  final List<String> stepTitles = ['Moving Details', 'Add Items', 'Review'];
+
+  Widget getStepContent(int step) {
+    switch (step) {
+      case 0:
+        return MovingDetails();
+      case 1:
+        return Center(
+            child: Text("Add Items to Move", style: TextStyle(fontSize: 20)));
+      case 2:
+        return Center(
+            child: Text("Review & Confirm", style: TextStyle(fontSize: 20)));
+      default:
+        return Center(
+            child: Text("Completed!", style: TextStyle(fontSize: 20)));
+    }
+  }
+
   int _currentStep = 0;
+
+  void nextStep() {
+    if (activeStep < stepTitles.length - 1) {
+      setState(() {
+        activeStep++;
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Done()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,55 +61,63 @@ class _StepperExampleState extends State<StepperExample> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.white,
-                colorScheme: Theme.of(context).colorScheme.copyWith(
-                      secondary: Colors.white,
-                      primary: Theme.of(context).primaryColor,
-                    ),
-              ),
-              child: Stepper(
-                currentStep: _currentStep,
-                type: StepperType.horizontal,
-                onStepTapped: (step) {
-                  if (step < _currentStep) {
-                    setState(() => _currentStep = step);
-                  }
-                },
-                controlsBuilder: (context, details) {
-                  // Remove default next/back button
-                  return SizedBox.shrink();
-                },
-                steps: getStep(),
+          EasyStepper(
+            disableScroll: true,
+            finishedStepTextColor: Colors.black,
+            activeStep: activeStep,
+            onStepReached: (index) {
+              if (index <= activeStep) {
+                setState(() {
+                  activeStep = index;
+                });
+              }
+            },
+            lineStyle: LineStyle(
+              lineLength: 90,
+              lineType: LineType.dotted,
+              defaultLineColor: Colors.grey,
+              finishedLineColor: Color(0xFF09596F),
+            ),
+            stepRadius: 20,
+            activeStepBorderColor: Color(0xFF09596F),
+            activeStepBackgroundColor: Colors.white,
+            activeStepTextColor: Color(0xFF09596F),
+            finishedStepBackgroundColor: Colors.transparent,
+            finishedStepBorderColor: Color(0xFF09596F),
+            finishedStepBorderType: BorderType.normal,
+            borderThickness: 3,
+            showStepBorder: true,
+            showLoadingAnimation: false,
+            showTitle: true,
+            titlesAreLargerThanSteps: true,
+            steps: List.generate(
+              stepTitles.length,
+                  (index) => EasyStep(
+                customStep: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.circle,
+                        size: 24,
+                        color: index <= activeStep
+                            ? Color(0xFF09596F)
+                            : Colors.grey),
+                  ],
+                ),
+                title: stepTitles[index],
               ),
             ),
           ),
+          Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: getStepContent(activeStep),
+              )),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: CustomButton(
-                onTap: () {
-                  if (_currentStep < 2) {
-                    setState(() {
-                      _currentStep += 1;
-                    });
-                  } else {
-                    // Navigate to another screen when last step is done
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            Dashboard(), // Replace with your next screen
-                      ),
-                    );
-                  }
-                },
-                title: _currentStep < 2 ? "Next" : "Continue",
-              ),
+            padding: const EdgeInsets.all(8.0),
+            child: CustomButton(
+              onTap: nextStep,
+              title: activeStep == stepTitles.length - 1 ? 'Done' : 'Next',
             ),
           )
         ],
@@ -83,20 +126,20 @@ class _StepperExampleState extends State<StepperExample> {
   }
 
   List<Step> getStep() => [
-        Step(
-          title: const Text(""),
-          content: MovingDetails(),
-          isActive: _currentStep >= 0,
-        ),
-        Step(
-          title: const Text(''),
-          content: Container(), // Add Items screen
-          isActive: _currentStep >= 1,
-        ),
-        Step(
-          title: const Text(''),
-          content: Center(child: Text("Hello World")), // Review screen
-          isActive: _currentStep >= 2,
-        ),
-      ];
+    Step(
+      title: const Text(""),
+      content: MovingDetails(),
+      isActive: _currentStep >= 0,
+    ),
+    Step(
+      title: const Text(''),
+      content: Container(), // Add Items screen
+      isActive: _currentStep >= 1,
+    ),
+    Step(
+      title: const Text(''),
+      content: Center(child: Text("Hello World")), // Review screen
+      isActive: _currentStep >= 2,
+    ),
+  ];
 }
