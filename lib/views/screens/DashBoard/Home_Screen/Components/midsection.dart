@@ -75,7 +75,7 @@ class _MidSectionState extends State<MidSection> {
         ),
         GestureDetector(
           onTap: (){
-            Navigator.push(context, getCustomRoute(child: StepperExample()));
+            Navigator.push(context, getCustomRoute(child: PackersAndMoverPage()));
           },
           child: Container(
             decoration: BoxDecoration(

@@ -2,17 +2,17 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/done.dart';
-import 'package:logistics/views/screens/DashBoard/Home_Screen/home_screen.dart';
-import 'package:logistics/views/screens/DashBoard/dashboard.dart';
 import 'add_items.dart';
 import 'moving_details.dart';
 
-class StepperExample extends StatefulWidget {
+class PackersAndMoverPage extends StatefulWidget {
+  const PackersAndMoverPage({super.key});
+
   @override
-  _StepperExampleState createState() => _StepperExampleState();
+  State<PackersAndMoverPage> createState() => _PackersAndMoverPageState();
 }
 
-class _StepperExampleState extends State<StepperExample> {
+class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
   int activeStep = 0;
 
   final List<String> stepTitles = ['Moving Details', 'Add Items', 'Review'];
@@ -30,7 +30,6 @@ class _StepperExampleState extends State<StepperExample> {
             child: Text("Completed!", style: TextStyle(fontSize: 20)));
     }
   }
-
 
   void nextStep() {
     if (activeStep < stepTitles.length - 1) {
@@ -90,7 +89,7 @@ class _StepperExampleState extends State<StepperExample> {
             titlesAreLargerThanSteps: true,
             steps: List.generate(
               stepTitles.length,
-                  (index) => EasyStep(
+              (index) => EasyStep(
                 customStep: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -108,9 +107,9 @@ class _StepperExampleState extends State<StepperExample> {
           ),
           Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: getStepContent(activeStep),
-              )),
+            padding: const EdgeInsets.all(16.0),
+            child: getStepContent(activeStep),
+          )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomButton(
@@ -122,6 +121,4 @@ class _StepperExampleState extends State<StepperExample> {
       ),
     );
   }
-
-
 }
