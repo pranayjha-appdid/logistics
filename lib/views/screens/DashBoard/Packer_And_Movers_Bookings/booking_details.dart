@@ -2,7 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logistics/services/route_helper.dart';
-import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/home_items_list.dart'; // Add this import for date formatting
+import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/home_items_list.dart';
+import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/tracking_details.dart'; // Add this import for date formatting
 
 class BookingDetails extends StatefulWidget {
   const BookingDetails({super.key});
@@ -183,9 +184,9 @@ class _BookingDetailsState extends State<BookingDetails> {
                 child: Text(
                   "MH 07 AE 2145",
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -213,7 +214,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                   ),
                   Spacer(),
                   Container(
-                    height: 40,
+                    height: 30,
                     decoration: BoxDecoration(
                         color: Color(0xff168FFF),
                         borderRadius: BorderRadius.only(
@@ -228,15 +229,14 @@ class _BookingDetailsState extends State<BookingDetails> {
                           Icon(
                             Icons.star,
                             color: Colors.white,
-                            size: 15,
+                            size: 18,
                           ),
                           SizedBox(
                             width: 10,
                           ),
                           Text(
                             "Confirmed",
-                            style:
-                                TextStyle(fontSize: 12, color: Colors.white70),
+                            style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                         ],
                       ),
@@ -282,7 +282,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall
-                            ?.copyWith(color: Colors.white),
+                            ?.copyWith(color: Colors.white, fontSize: 10),
                       ),
                     ),
                   ),
@@ -334,7 +334,6 @@ class _BookingDetailsState extends State<BookingDetails> {
                 height: 20,
               ),
               _deliverycharges(),
-
             ],
           ),
         ),
@@ -369,7 +368,9 @@ class _BookingDetailsState extends State<BookingDetails> {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  setState(() {});
+                  setState(() {
+                    Navigator.push(context, getCustomRoute(child: TrackingDetails()));
+                  });
                 },
                 child: Container(
                   height: 50,

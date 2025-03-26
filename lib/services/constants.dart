@@ -55,4 +55,7 @@ class AppConstants {
   static const String razorpayKey = 'razorpay_key';
   static const String recentOrders = 'recent_orders';
   static const String isUser = 'is_user';
+
+
+  static const String imagemap="https://s3-alpha-sig.figma.com/img/8414/f553/d63d5bbb1407c481ba3903df9c12c80b?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=hLUCpnYfVhw0UKdfWXi7axsterL6CZSbnxOuDg8Y7KuMVrjeHIk5ewCTN3XwyfA8SKvF8kS4Mj57UNy76GjJ93tY862svBpk59lhI0todsXQnPAWB854UTbucM-4sROiW1IG6XOM0L7Rt3TQ9zgr8qDj94oZmFaGLgj6BAtJWeFBklawRFv7o7FSaD3TydqXe~BqcFc2yb3BEXg3w4ZSqoqWVFJ7ttVH0SUEwK-2fYlDbY4Yg~OsKhWYXGYzd3tHB5prOzARC1mo1-4UCQBky8-mlvQTi0s~NNrxff4oyxhUpUXrkpp15dYovGdpmKh4e2kxCI2E7~L6UQO9X3gQsA__";
 }
