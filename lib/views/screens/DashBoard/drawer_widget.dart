@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logistics/services/route_helper.dart';
 
 import '../Other_Screen/review_and_rating.dart';
+import 'Packer_And_Movers_Bookings/packer_and_mover_bookings.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
@@ -11,7 +12,6 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-
   Widget _MenuContentContainer(
       {required IconData icon,
       required String title,
@@ -94,8 +94,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         _MenuContentContainer(
                             title: "My Profile",
                             icon: Icons.account_circle_outlined,
-                            onTap: () {
-                            }),
+                            onTap: () {}),
                         _MenuContentContainer(
                             title: "My Bookings",
                             icon: Icons.bookmark_outline,
@@ -103,14 +102,20 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         _MenuContentContainer(
                             title: "Packers and Movers",
                             icon: Icons.fire_truck_outlined,
-                            onTap: () {}),
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  getCustomRoute(
+                                      child: PackerAndMoverBookings()));
+                            }),
                         _MenuContentContainer(
                             title: "Review & Ratings",
                             icon: Icons.star_outline,
                             onTap: () {
                               Navigator.pop(context);
-                              Navigator.push(context, getCustomRoute(child: ReviewAndRating()));
-
+                              Navigator.push(context,
+                                  getCustomRoute(child: ReviewAndRating()));
                             }),
                         _MenuContentContainer(
                             title: "Term And Condition",

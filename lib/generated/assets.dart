@@ -26,6 +26,7 @@ class Assets {
   static const String imagesShimmer = 'assets/images/shimmer.gif';
   static const String imagesSucessGif = 'assets/images/sucess_gif.gif';
   static const String imagesTruck = 'assets/images/truck.png';
+  static const String imagesTruckpackers = 'assets/images/truckpackers.png';
   static const String imagesTwoWheeler = 'assets/images/two_wheeler.png';
   static const String imagesUser = 'assets/images/user.png';
 
