@@ -4,6 +4,7 @@ import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/done.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/home_screen.dart';
 import 'package:logistics/views/screens/DashBoard/dashboard.dart';
+import 'add_items.dart';
 import 'moving_details.dart';
 
 class StepperExample extends StatefulWidget {
@@ -21,18 +22,15 @@ class _StepperExampleState extends State<StepperExample> {
       case 0:
         return MovingDetails();
       case 1:
-        return Center(
-            child: Text("Add Items to Move", style: TextStyle(fontSize: 20)));
+        return AddItems();
       case 2:
-        return Center(
-            child: Text("Review & Confirm", style: TextStyle(fontSize: 20)));
+        return AddItems();
       default:
         return Center(
             child: Text("Completed!", style: TextStyle(fontSize: 20)));
     }
   }
 
-  int _currentStep = 0;
 
   void nextStep() {
     if (activeStep < stepTitles.length - 1) {
@@ -125,21 +123,5 @@ class _StepperExampleState extends State<StepperExample> {
     );
   }
 
-  List<Step> getStep() => [
-    Step(
-      title: const Text(""),
-      content: MovingDetails(),
-      isActive: _currentStep >= 0,
-    ),
-    Step(
-      title: const Text(''),
-      content: Container(), // Add Items screen
-      isActive: _currentStep >= 1,
-    ),
-    Step(
-      title: const Text(''),
-      content: Center(child: Text("Hello World")), // Review screen
-      isActive: _currentStep >= 2,
-    ),
-  ];
+
 }
