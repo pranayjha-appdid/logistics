@@ -2,26 +2,31 @@
 class Assets {
   Assets._();
 
-  static const String onBoarding1 = 'assets/images/OnBoarding1.png';
-  static const String onBoarding2 = 'assets/images/OnBoarding2.png';
-  static const String onBoarding3 = 'assets/images/OnBoarding3.png';
-  static const String otpverficationlockicon = 'assets/images/otpverficationlockicon.svg';
-  static const String registerusersvg = 'assets/images/registerusersvg.svg';
-  static const String locationsuffix1 = 'assets/images/locationsuffix.svg';
-  static const String locationsuffix2 = 'assets/images/locationsuffix2.svg';
-  static const String two_wheeler = 'assets/images/two_wheeler.png';
-  static const String truck = 'assets/images/truck.png';
-  static const String packer_and_mover = 'assets/images/packer_and_mover.png';
-  static const String goods = 'assets/images/goods.png';
-  static const String user = 'assets/images/user.png';
-
-
-
-
-
-
+  static const String fontsLatoRegular = 'assets/fonts/Lato-Regular.ttf';
+  static const String fontsPoppinsBlack = 'assets/fonts/Poppins-Black.ttf';
+  static const String fontsPoppinsBold = 'assets/fonts/Poppins-Bold.ttf';
+  static const String fontsPoppinsExtraBold = 'assets/fonts/Poppins-ExtraBold.ttf';
+  static const String fontsPoppinsExtraLight = 'assets/fonts/Poppins-ExtraLight.ttf';
+  static const String fontsPoppinsLight = 'assets/fonts/Poppins-Light.ttf';
+  static const String fontsPoppinsMedium = 'assets/fonts/Poppins-Medium.ttf';
+  static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
+  static const String fontsPoppinsSemiBold = 'assets/fonts/Poppins-SemiBold.ttf';
   static const String imagesExclaim = 'assets/images/exclaim.png';
+  static const String imagesGoods = 'assets/images/goods.png';
+  static const String imagesLocationsuffix = 'assets/images/locationsuffix.svg';
+  static const String imagesLocationsuffix2 = 'assets/images/locationsuffix2.svg';
   static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesOnBoarding1 = 'assets/images/OnBoarding1.png';
+  static const String imagesOnBoarding2 = 'assets/images/OnBoarding2.png';
+  static const String imagesOnBoarding3 = 'assets/images/OnBoarding3.png';
+  static const String imagesOtpverficationlockicon = 'assets/images/otpverficationlockicon.svg';
+  static const String imagesPackerAndMover = 'assets/images/packer_and_mover.png';
   static const String imagesPlaceholder = 'assets/images/placeholder.jpg';
+  static const String imagesRegisterusersvg = 'assets/images/registerusersvg.svg';
   static const String imagesShimmer = 'assets/images/shimmer.gif';
+  static const String imagesSucessGif = 'assets/images/sucess_gif.gif';
+  static const String imagesTruck = 'assets/images/truck.png';
+  static const String imagesTwoWheeler = 'assets/images/two_wheeler.png';
+  static const String imagesUser = 'assets/images/user.png';
+
 }

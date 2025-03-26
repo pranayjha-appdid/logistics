@@ -66,12 +66,12 @@ class _MidSectionState extends State<MidSection> {
         choosetransporttype(
           bgcolor: const Color(0xffFFE6AD),
           type: "Two Wheeler",
-          imagepath: Assets.two_wheeler,
+          imagepath: Assets.imagesTwoWheeler,
         ),
         choosetransporttype(
           bgcolor: const Color(0xffB9D9FF),
           type: "Truck",
-          imagepath: Assets.truck,
+          imagepath: Assets.imagesTruck,
         ),
         GestureDetector(
           onTap: (){
@@ -99,7 +99,7 @@ class _MidSectionState extends State<MidSection> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      Assets.packer_and_mover,
+                      Assets.imagesPackerAndMover,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -125,7 +125,7 @@ class _MidSectionState extends State<MidSection> {
         choosetransporttype(
           bgcolor: const Color(0xffFFE3BD),
           type: "Goods",
-          imagepath: Assets.goods,
+          imagepath: Assets.imagesGoods,
         ),
       ],
     );

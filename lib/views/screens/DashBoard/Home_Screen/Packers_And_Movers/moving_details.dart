@@ -111,7 +111,7 @@ class _MovingDetailsState extends State<MovingDetails> {
             name: "Kunal Pawar",
             phone: "+91 89455 53123",
             address: "Gopi Tank Marg, Mahim West, Shivaji Park...",
-            actionIconPath: Assets.locationsuffix1,
+            actionIconPath: Assets.imagesLocationsuffix,
           ),
         ),
         const SizedBox(height: 15),
@@ -126,7 +126,7 @@ class _MovingDetailsState extends State<MovingDetails> {
             name: "Manoj Dalavi",
             phone: "+91 89455 53123",
             address: "Worli Shivaji Nagar, Worli Mumbai, Maharashtra 400030",
-            actionIconPath: Assets.locationsuffix2,
+            actionIconPath: Assets.imagesLocationsuffix2,
           ),
         ),
         const SizedBox(height: 15),
@@ -204,8 +204,6 @@ class _MovingDetailsState extends State<MovingDetails> {
         ),
         const SizedBox(height: 5),
         const Divider(),
-
-        /// Toggle 1: Pickup
         Container(
           width: double.infinity,
           height: 60,
@@ -240,10 +238,7 @@ class _MovingDetailsState extends State<MovingDetails> {
             ),
           ),
         ),
-
         const SizedBox(height: 15),
-
-        /// Toggle 2: Drop
         Container(
           width: double.infinity,
           height: 60,

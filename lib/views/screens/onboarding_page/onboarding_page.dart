@@ -38,11 +38,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
   }
   final List<OnboardingModel> onboardinglist = [
-    OnboardingModel(Assets.onBoarding1, "On-Demand Logistics Made Easy",
+    OnboardingModel(Assets.imagesOnBoarding1, "On-Demand Logistics Made Easy",
         "Need to transport goods? Book a ride in seconds and get hassle-free delivery at your doorstep."),
-    OnboardingModel(Assets.onBoarding2, "Reliable & Affordable",
+    OnboardingModel(Assets.imagesOnBoarding2, "Reliable & Affordable",
         "Trusted delivery partners ensure your goods reach safely and on time, at the best prices."),
-    OnboardingModel(Assets.onBoarding3, "Track & Manage Deliveries",
+    OnboardingModel(Assets.imagesOnBoarding3, "Track & Manage Deliveries",
         "Track your delivery in real time, manage bookings, and get instant updates—all in one place."),
   ];
   int _currentPage = 0;

@@ -69,7 +69,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: SvgPicture.asset(Assets.otpverficationlockicon)),
+              Center(child: SvgPicture.asset(Assets.imagesOtpverficationlockicon)),
               SizedBox(height: 25),
               Text(
                 "Verify Your Code",

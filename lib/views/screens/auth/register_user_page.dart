@@ -29,7 +29,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(child: SvgPicture.asset(Assets.registerusersvg)),
+                Center(child: SvgPicture.asset(Assets.imagesRegisterusersvg)),
                 SizedBox(height: 25),
                 Text(
                   "Let's Get to Know\n You Better",

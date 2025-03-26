@@ -81,7 +81,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(18),
                         child: Image.asset(
-                          Assets.user,
+                          Assets.imagesUser,
                           height: 120,
                           fit: BoxFit
                               .contain, // Ensures image fills the container without cutting

@@ -2,6 +2,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/done.dart';
+import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/review_packers_and_movers.dart';
 import 'add_items.dart';
 import 'moving_details.dart';
 
@@ -24,7 +25,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
       case 1:
         return AddItems();
       case 2:
-        return AddItems();
+        return ReviewPackersAndMovers();
       default:
         return Center(
             child: Text("Completed!", style: TextStyle(fontSize: 20)));
@@ -48,6 +49,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -107,15 +109,98 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
           ),
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:
+                const EdgeInsets.only(left: 16.0, bottom: 16.0, right: 16.0),
             child: getStepContent(activeStep),
           )),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CustomButton(
-              onTap: nextStep,
-              title: activeStep == stepTitles.length - 1 ? 'Done' : 'Next',
-            ),
+            child: activeStep != 1
+                ? CustomButton(
+                    onTap: nextStep,
+                    title:
+                        activeStep == stepTitles.length - 1 ? 'Book ' : 'Next',
+                  )
+                : Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff000000),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .center, // Center the column vertically
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .start, // Align text to the left
+                                children: [
+                                  Text(
+                                    "4 Items added",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                            color: Colors.grey[500],
+                                            fontSize: 11),
+                                  ),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "View All",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Icon(Icons.arrow_upward,
+                                          color: Colors.white, size: 10)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: nextStep,
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff09596F),
+                              borderRadius: BorderRadius.circular(8),
+                              border:
+                                  Border.all(color: const Color(0xff09596F)),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text("Confirm Items",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        color: Colors.white, fontSize: 15)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
           )
         ],
       ),

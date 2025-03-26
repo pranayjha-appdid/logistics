@@ -172,7 +172,7 @@ class _TopSectionState extends State<TopSection> {
                   name: "Kunal Pawar",
                   phone: "+91 89455 53123",
                   address: "Gopi Tank Marg, Mahim West, Shivaji Park...",
-                  actionIconPath: Assets.locationsuffix1,
+                  actionIconPath: Assets.imagesLocationsuffix,
                 ),
               ),
               Padding(
@@ -203,7 +203,7 @@ class _TopSectionState extends State<TopSection> {
                   address:
                       "Worli Shivaji Nagar, Worli Mumbai, Maharashtra 400030",
                   actionIconPath:
-                      Assets.locationsuffix2, // Replace with your actual path
+                      Assets.imagesLocationsuffix2, // Replace with your actual path
                 ),
               ),
             ],
