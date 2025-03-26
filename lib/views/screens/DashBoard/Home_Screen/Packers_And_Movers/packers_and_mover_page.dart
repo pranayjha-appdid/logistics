@@ -1,9 +1,9 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:logistics/views/base/common_button.dart';
-import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/done.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/review_packers_and_movers.dart';
 import 'add_items.dart';
+import 'booking_placed_page.dart';
 import 'moving_details.dart';
 
 class PackersAndMoverPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Done()),
+        MaterialPageRoute(builder: (context) => BookingPlacedPage()),
       );
     }
   }
@@ -125,7 +125,58 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                  height: 600,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(30),
+                                          topRight: Radius.circular(30))),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              color: Color(0xff09596F),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(25),
+                                                  topRight:
+                                                      Radius.circular(25))),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Selected Items",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall
+                                                      ?.copyWith(
+                                                          fontSize: 24,
+                                                          color: Colors.white70,
+                                                          fontWeight:
+                                                              FontWeight.w100),
+                                                ),
+                                                CircleAvatar(
+                                                    child: Icon(Icons.close))
+                                              ],
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
