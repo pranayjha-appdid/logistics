@@ -25,6 +25,8 @@ class Assets {
   static const String imagesPlaceholder = 'assets/images/placeholder.jpg';
   static const String imagesRegisterusersvg = 'assets/images/registerusersvg.svg';
   static const String imagesShimmer = 'assets/images/shimmer.gif';
+  static const String imagesStar = 'assets/images/star.png';
+  static const String imagesStarFill = 'assets/images/star_fill.png';
   static const String imagesSucessGif = 'assets/images/sucess_gif.gif';
   static const String imagesTruck = 'assets/images/truck.png';
   static const String imagesTruckpackers = 'assets/images/truckpackers.png';

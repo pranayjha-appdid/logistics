@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/services/constants.dart';
+import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:timelines_plus/timelines_plus.dart';
+
+import 'deivered_screen.dart';
 
 class TrackingDetails extends StatefulWidget {
   const TrackingDetails({super.key});
@@ -213,7 +216,9 @@ class _TrackingDetailsState extends State<TrackingDetails> {
                   ),
                 ),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, getCustomRoute(child: DeiveredScreen()));
+                  },
                   title: "Live Tracking",
                 )
               ],

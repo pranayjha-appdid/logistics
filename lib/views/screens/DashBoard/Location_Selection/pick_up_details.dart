@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Location_Selection/search_location.dart';
+import '../../../../controllers/drop_location_controller.dart';
 import '../../../../services/input_decoration.dart';
 
 class PickUpDetailsPage extends StatefulWidget {
@@ -14,6 +15,99 @@ class PickUpDetailsPage extends StatefulWidget {
 
 class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
   DateTime? selectedDate;
+
+  Widget _address({
+    required int index,
+    required LocationFormControllers location,
+    required VoidCallback onRemove,
+    required bool canRemove,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text('Drop Location ${index + 1}',
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              const Spacer(),
+              if (canRemove)
+                GestureDetector(
+                  onTap: onRemove,
+                  child: Container(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffCF0012),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.delete_outline,
+                            size: 16, color: Colors.white),
+                        SizedBox(width: 4),
+                        Text("Delete",
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                )
+            ],
+          ),
+          const SizedBox(height: 15),
+          TextField(
+            controller: location.address,
+            decoration: CustomDecoration.inputDecoration(
+              label: 'Location',
+              borderRadius: 8,
+              suffix: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, getCustomRoute(child: const SearchLocation()));
+                },
+                icon: const Icon(Icons.location_on_outlined),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            controller: location.buildingName,
+            decoration: CustomDecoration.inputDecoration(
+              label: 'Building Name',
+              borderRadius: 8,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: location.floor,
+                  decoration: CustomDecoration.inputDecoration(
+                    label: 'Floor No',
+                    borderRadius: 8,
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: TextField(
+                  controller: location.flatNo,
+                  decoration: CustomDecoration.inputDecoration(
+                    label: 'House Number',
+                    borderRadius: 8,
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
