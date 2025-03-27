@@ -7,12 +7,14 @@ class LocationModel {
   String buildingName;
   String floor;
   String flatno;
+  String type;
 
   LocationModel({
     required this.address,
     required this.buildingName,
     required this.floor,
     required this.flatno,
+    required this.type
   });
 
   Map<String, dynamic> toJson() {
@@ -21,6 +23,7 @@ class LocationModel {
       'buildingName': buildingName,
       'floor': floor,
       'flatno': flatno,
+      'type':type,
     };
   }
 
@@ -30,6 +33,7 @@ class LocationModel {
       buildingName: json['buildingName'],
       floor: json['floor'],
       flatno: json['flatno'],
+      type: json['type']
     );
   }
 }

@@ -56,6 +56,7 @@ dependencies:
   font_awesome_flutter:
   easy_stepper: ^0.8.5+1
   timelines_plus:
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

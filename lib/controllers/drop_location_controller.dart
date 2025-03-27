@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
+import 'package:get/get.dart';
 import '../data/models/response/location_model.dart';
 
 class DropLocationController extends GetxController implements GetxService {
@@ -9,8 +7,12 @@ class DropLocationController extends GetxController implements GetxService {
   final List<LocationFormControllers> _locations = [LocationFormControllers()];
   List<LocationFormControllers> get locations => _locations;
 
-  void updatemaxaddress(int max){
-    maxAddress=max;
+
+
+  List<LocationModel> addressList = [];
+
+  void updateMaxAddress(int max) {
+    maxAddress = max;
     update();
   }
 
@@ -29,8 +31,21 @@ class DropLocationController extends GetxController implements GetxService {
     }
   }
 
+  void submitLocations() {
+    addressList = getLocationModels();
+    update();
+    printLocations(); // Print in console for debugging
+  }
+
   List<LocationModel> getLocationModels() {
     return _locations.map((location) => location.toModel()).toList();
+  }
+
+  void printLocations() {
+    for (var loc in addressList) {
+      print(
+          "Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
+    }
   }
 
   @override
@@ -48,16 +63,15 @@ class LocationFormControllers {
   final TextEditingController floor = TextEditingController();
   final TextEditingController flatNo = TextEditingController();
 
-
   LocationModel toModel() {
     return LocationModel(
       address: address.text.trim(),
       buildingName: buildingName.text.trim(),
       floor: floor.text.trim(),
       flatno: flatNo.text.trim(),
+      type: 'drop',
     );
   }
-
 
   void dispose() {
     address.dispose();

@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/home_items_list.dart';
-import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/tracking_details.dart'; // Add this import for date formatting
+import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/tracking_details.dart';
+import 'package:timelines_plus/timelines_plus.dart'; // Add this import for date formatting
 
 class BookingDetails extends StatefulWidget {
   const BookingDetails({super.key});
@@ -13,6 +15,49 @@ class BookingDetails extends StatefulWidget {
 }
 
 class _BookingDetailsState extends State<BookingDetails> {
+  final List<Map<String, dynamic>> trackingDetails = [
+    {
+      "pickOrDrop": "Pick up 1",
+      "address":
+          "969 Ziemann Trail, West Kipview, New Hampshire - 51745, Dominica",
+      "date": "Mar 25, 2025",
+      "time": "10:00 AM",
+      "completed": true,
+    },
+    {
+      "pickOrDrop": "Pick up 2",
+      "address":
+          "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
+      "date": "Mar 26, 2025",
+      "time": "08:30 AM",
+      "completed": true,
+    },
+    {
+      "pickOrDrop": "Drop off 1",
+      "address":
+          "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
+      "date": "Mar 27, 2025",
+      "time": "12:00 PM",
+      "completed": true,
+    },
+    {
+      "pickOrDrop": "Drop off 2",
+      "address":
+          "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
+      "date": "",
+      "time": "",
+      "completed": false,
+    },
+    {
+      "pickOrDrop": "Drop off 3",
+      "address":
+          "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
+      "date": "",
+      "time": "",
+      "completed": false,
+    },
+  ];
+
   // Define the booking and estimated delivery date variables
   DateTime bookingDate = DateTime(2025, 3, 13, 17, 12);
   DateTime estimateDeliveryDate = DateTime(2025, 9, 13);
@@ -244,8 +289,100 @@ class _BookingDetailsState extends State<BookingDetails> {
                   ),
                 ],
               ),
+
+              Timeline.tileBuilder(
+                physics: NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.all(0),
+                shrinkWrap: true,
+                builder: TimelineTileBuilder.connected(
+                  connectionDirection: ConnectionDirection.before,
+                  nodePositionBuilder: (context, index) {
+                    return 0;
+                  },
+                  itemCount: trackingDetails.length,
+                  indicatorBuilder: (context, index) {
+                    final step = trackingDetails[index];
+                    return DotIndicator(
+                      size: 20.0,
+                      color: step["completed"] ? Color(0xffFFA538) : null,
+                      child: step["completed"]
+                          ? const Icon(Icons.check,
+                              color: Colors.white, size: 12)
+                          : Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.black)),
+                              child: const Icon(Icons.circle,
+                                  color: Colors.black, size: 10),
+                            ),
+                    );
+                  },
+                  connectorBuilder: (_, index, type) {
+                    return DashedLineConnector(
+                      gap: 4.0,
+                      color: trackingDetails[index]["completed"]
+                          ? Color(0xffFFA538)
+                          : Colors.black,
+                    );
+                  },
+                  contentsBuilder: (context, index) {
+                    final step = trackingDetails[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 25.0, top: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                step["pickOrDrop"],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge
+                                    ?.copyWith(
+                                        fontSize: 13, color: Color(0xff7E7E7E)),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              if (step["date"] != "" && step["time"] != "")
+                                Container(
+                                  color: Colors.green,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2.0, horizontal: 5),
+                                    child: Text(
+                                      "${step["date"]} ${step["time"]}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                          Text(
+                            step["address"],
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                    fontSize: 13, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
               SizedBox(
-                height: 200,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -254,8 +391,8 @@ class _BookingDetailsState extends State<BookingDetails> {
                     "Est. Delivery Date:",
                     style: Theme.of(context)
                         .textTheme
-                        ?.displayMedium
-                        ?.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                        ?.displayLarge
+                        ?.copyWith(fontSize: 16),
                   ),
                   Spacer(),
                   Text(
@@ -269,13 +406,12 @@ class _BookingDetailsState extends State<BookingDetails> {
                     width: 12,
                   ),
                   Container(
-                    width: 79,
+                    width: 85,
                     decoration: BoxDecoration(
                         color: Color(0xff019539),
                         borderRadius: BorderRadius.circular(5)),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(
                         textAlign: TextAlign.center,
                         "On Time",
@@ -289,7 +425,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -369,7 +505,8 @@ class _BookingDetailsState extends State<BookingDetails> {
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    Navigator.push(context, getCustomRoute(child: TrackingDetails()));
+                    Navigator.push(
+                        context, getCustomRoute(child: TrackingDetails()));
                   });
                 },
                 child: Container(

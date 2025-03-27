@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Location_Selection/search_location.dart';
@@ -36,7 +37,7 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                   onTap: onRemove,
                   child: Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xffCF0012),
                       borderRadius: BorderRadius.circular(4),
@@ -48,7 +49,7 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                         SizedBox(width: 4),
                         Text("Delete",
                             style:
-                            TextStyle(color: Colors.white, fontSize: 12)),
+                                TextStyle(color: Colors.white, fontSize: 12)),
                       ],
                     ),
                   ),
@@ -178,7 +179,7 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.black),
+                    border: Border.all(color: Colors.grey),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,7 +188,7 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                         selectedDate == null
                             ? "Select Date"
                             : "${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                       ),
                       Icon(
                         Icons.calendar_today,
@@ -198,58 +199,86 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                 ),
               ),
               SizedBox(height: 30),
-              Text(
-                "Pickup Location",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(color: Colors.black, fontSize: 18),
+
+              GetBuilder<DropLocationController>(
+                builder: (controller) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.locations.length,
+                    itemBuilder: (context, index) {
+                      if (index == controller.locations.length + 1) {
+                        return Column(
+                          children: [
+                            if (controller.locations.length <
+                                controller.maxAddress)
+                              GestureDetector(
+                                onTap: controller.addAddress,
+                                child: Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffEBF2F3),
+                                    border: Border.all(
+                                        color: const Color(0xffffffff)),
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.add, size: 13),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        "Add more drop location",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                                color: Colors.black,
+                                                fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            const SizedBox(height: 20),
+                          ],
+                        );
+                      } else {
+                        final location = controller.locations[index];
+                        return _address(
+                          index: index,
+                          location: location,
+                          onRemove: () => controller.removeAddress(index - 1),
+                          canRemove: controller.locations.length > 1,
+                        );
+                      }
+                    },
+                  );
+                },
               ),
-              SizedBox(height: 15),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: CustomDecoration.inputDecoration(
-                    label: 'Location',
-                    borderRadius: 8,
-                    suffix: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context, getCustomRoute(child: SearchLocation()));
-                        },
-                        icon: Icon(Icons.location_on_outlined))),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: CustomDecoration.inputDecoration(
-                  label: 'The Mock Tower',
-                  borderRadius: 8,
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: CustomDecoration.inputDecoration(
-                        label: 'Floor No',
-                        borderRadius: 8,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: CustomDecoration.inputDecoration(
-                        label: 'House Number',
-                        borderRadius: 8,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // _address(index: index, location: location, onRemove: onRemove, canRemove: canRemove)
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: TextFormField(
+              //         keyboardType: TextInputType.number,
+              //         decoration: CustomDecoration.inputDecoration(
+              //           label: 'Floor No',
+              //           borderRadius: 8,
+              //         ),
+              //       ),
+              //     ),
+              //     const SizedBox(width: 10),
+              //     Expanded(
+              //       child: TextFormField(
+              //         keyboardType: TextInputType.text,
+              //         decoration: CustomDecoration.inputDecoration(
+              //           label: 'House Number',
+              //           borderRadius: 8,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

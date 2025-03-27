@@ -25,73 +25,52 @@ class _MovingDetailsState extends State<MovingDetails> {
     required String name,
     required String phone,
     required String address,
-    required String actionIconPath,
   }) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: iconColor,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 20,
+          ),
         ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: iconColor,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      style: const TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: '$label ',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '$name . $phone',
-                        ),
-                      ],
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: const TextStyle(color: Colors.black),
+                  children: [
+                    TextSpan(
+                      text: '$label ',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    address,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                ],
+                    TextSpan(
+                      text: '$name . $phone',
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            CircleAvatar(
-              backgroundColor: const Color(0xffF4F4F4),
-              child: SvgPicture.asset(
-                actionIconPath,
-                height: 24,
-                width: 24,
+              const SizedBox(height: 4),
+              Text(
+                address,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 14),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -100,33 +79,49 @@ class _MovingDetailsState extends State<MovingDetails> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context, getCustomRoute(child: PickUpDetailsPage()));
-          },
-          child: LocationContainerWidget(
-            iconColor: const Color(0xff00C060),
-            icon: Icons.location_on,
-            label: "From",
-            name: "Kunal Pawar",
-            phone: "+91 89455 53123",
-            address: "Gopi Tank Marg, Mahim West, Shivaji Park...",
-            actionIconPath: Assets.imagesLocationsuffix,
-          ),
-        ),
-        const SizedBox(height: 15),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context, getCustomRoute(child: DropDetails()));
-          },
-          child: LocationContainerWidget(
-            iconColor: const Color(0xffEB0404),
-            icon: Icons.location_on,
-            label: "To",
-            name: "Manoj Dalavi",
-            phone: "+91 89455 53123",
-            address: "Worli Shivaji Nagar, Worli Mumbai, Maharashtra 400030",
-            actionIconPath: Assets.imagesLocationsuffix2,
+        Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context, getCustomRoute(child: PickUpDetailsPage()));
+                  },
+                  child: LocationContainerWidget(
+                    iconColor: const Color(0xff00C060),
+                    icon: Icons.location_on,
+                    label: "From",
+                    name: "Kunal Pawar",
+                    phone: "+91 89455 53123",
+                    address: "Gopi Tank Marg, Mahim West, Shivaji Park...",
+                  ),
+                ),
+                const SizedBox(height: 15),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context, getCustomRoute(child: DropDetails()));
+                  },
+                  child: LocationContainerWidget(
+                    iconColor: const Color(0xffEB0404),
+                    icon: Icons.location_on,
+                    label: "To",
+                    name: "Manoj Dalavi",
+                    phone: "+91 89455 53123",
+                    address:
+                        "Worli Shivaji Nagar, Worli Mumbai, Maharashtra 400030",
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 15),

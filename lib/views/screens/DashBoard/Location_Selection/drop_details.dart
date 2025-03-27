@@ -113,7 +113,7 @@ class _DropDetailsState extends State<DropDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
@@ -178,7 +178,7 @@ class _DropDetailsState extends State<DropDetails> {
                             decoration: BoxDecoration(
                               color: const Color(0xffEBF2F3),
                               border:
-                                  Border.all(color: const Color(0xffffffff)),
+                              Border.all(color: const Color(0xffffffff)),
                               borderRadius: BorderRadius.circular(2),
                             ),
                             child: Row(
@@ -191,7 +191,7 @@ class _DropDetailsState extends State<DropDetails> {
                                       .textTheme
                                       .displayMedium
                                       ?.copyWith(
-                                          color: Colors.black, fontSize: 14),
+                                      color: Colors.black, fontSize: 14),
                                 )
                               ],
                             ),
@@ -221,16 +221,15 @@ class _DropDetailsState extends State<DropDetails> {
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: CustomButton(
               onTap: () {
-                List<LocationModel> data =
+                Get.find<DropLocationController>().addressList =
                     Get.find<DropLocationController>().getLocationModels();
-                for (var loc in data) {
-                  print(
-                      "Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
-                }
+
+                print(Get.find<DropLocationController>().addressList);
+
               },
               color: const Color(0xff09596F),
               child:
-                  const Text("SUBMIT", style: TextStyle(color: Colors.white)),
+              const Text("SUBMIT", style: TextStyle(color: Colors.white)),
             ),
           ),
         ],
