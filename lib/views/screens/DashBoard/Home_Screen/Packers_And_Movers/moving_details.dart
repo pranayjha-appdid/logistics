@@ -78,6 +78,8 @@ class _MovingDetailsState extends State<MovingDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print("");
+
 
     for (var loc in Get.find<LocationController>().pickaddressList) {
       print(

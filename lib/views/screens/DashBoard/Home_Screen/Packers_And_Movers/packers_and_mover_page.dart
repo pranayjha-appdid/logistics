@@ -14,6 +14,7 @@ class PackersAndMoverPage extends StatefulWidget {
 }
 
 class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
+
   int activeStep = 0;
 
   final List<String> stepTitles = ['Moving Details', 'Add Items', 'Review'];
@@ -47,6 +48,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("");
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,

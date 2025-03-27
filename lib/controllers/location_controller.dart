@@ -35,6 +35,7 @@ class LocationController extends GetxController implements GetxService {
     if (_pickupLocations.length < maxPickup && totalAddresses < 8) {
       _pickupLocations.add(LocationFormControllers(type: "pickup"));
       update();
+      update();
     }
   }
 
