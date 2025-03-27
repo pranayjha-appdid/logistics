@@ -24,31 +24,24 @@ class LocationController extends GetxController implements GetxService {
 
   @override
   void onInit() {
-    _pickupLocations.add(LocationFormControllers(
-        type: "pickup", onUpdate: updatepickupAddressList));
-    _dropLocations.add(
-        LocationFormControllers(type: "drop", onUpdate: updatedropAddressList));
-    updatepickupAddressList();
-    updatedropAddressList();
+    _pickupLocations.add(LocationFormControllers(type: "pickup"));
+    _dropLocations.add(LocationFormControllers(type: "drop"));
+    // updatepickupAddressList();
+    // updatedropAddressList();
     super.onInit();
   }
 
   void addPickupAddress() {
     if (_pickupLocations.length < maxPickup && totalAddresses < 8) {
-      _pickupLocations.add(LocationFormControllers(
-          type: "pickup", onUpdate: updatepickupAddressList));
+      _pickupLocations.add(LocationFormControllers(type: "pickup"));
       update();
-      // updateAddressList();
     }
   }
 
   void addDropAddress() {
     if (_dropLocations.length < maxDrop && totalAddresses < 8) {
-      _dropLocations.add(LocationFormControllers(
-          type: "drop", onUpdate: updatedropAddressList));
+      _dropLocations.add(LocationFormControllers(type: "drop"));
       update();
-
-      // updateAddressList();
     }
   }
 
@@ -68,38 +61,14 @@ class LocationController extends GetxController implements GetxService {
     }
   }
 
-  void updatepickupAddressList({bool isDrop = false}) {
-    pickaddressList = [];
-    List<LocationModel> pickups = getPickupModels();
-    pickaddressList.addAll(pickups);
+  void updatepickupAddressList() {
+    pickaddressList = _pickupLocations.map((loc) => loc.toModel()).toList();
     update();
   }
 
   void updatedropAddressList() {
-    dropaddressList = [];
-    List<LocationModel> drops = getDropModels();
-    dropaddressList.addAll(drops);
+    dropaddressList = _dropLocations.map((loc) => loc.toModel()).toList();
     update();
-  }
-
-  List<LocationModel> getPickupModels() {
-    return _pickupLocations.map((location) => location.toModel()).toList();
-  }
-
-  List<LocationModel> getDropModels() {
-    return _dropLocations.map((location) => location.toModel()).toList();
-  }
-
-  void printLocations() {
-    for (var loc in pickaddressList) {
-      print(
-          "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
-    }
-
-    for (var loc in dropaddressList) {
-      print(
-          "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
-    }
   }
 
   @override
@@ -120,18 +89,12 @@ class LocationFormControllers {
   final TextEditingController floor;
   final TextEditingController flatNo;
   final String type;
-  final VoidCallback onUpdate;
 
-  LocationFormControllers({required this.type, required this.onUpdate})
+  LocationFormControllers({required this.type})
       : address = TextEditingController(),
         buildingName = TextEditingController(),
         floor = TextEditingController(),
-        flatNo = TextEditingController() {
-    address.addListener(onUpdate);
-    buildingName.addListener(onUpdate);
-    floor.addListener(onUpdate);
-    flatNo.addListener(onUpdate);
-  }
+        flatNo = TextEditingController();
 
   LocationModel toModel() {
     return LocationModel(

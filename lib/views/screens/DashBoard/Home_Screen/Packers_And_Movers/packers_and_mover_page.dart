@@ -113,153 +113,158 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                   const EdgeInsets.only(left: 16.0, bottom: 16.0, right: 16.0),
               child: getStepContent(activeStep),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: activeStep != 1
-                  ? CustomButton(
-                      onTap: nextStep,
-                      title: activeStep == stepTitles.length - 1
-                          ? 'Book '
-                          : 'Next',
-                    )
-                  : Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Container(
-                                    height: 600,
+          ],
+        ),
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: activeStep != 1
+                ? CustomButton(
+              onTap: nextStep,
+              title: activeStep == stepTitles.length - 1
+                  ? 'Book '
+                  : 'Next',
+            )
+                : Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            height: 600,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30))),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: 80,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: Color(0xff09596F),
                                         borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30))),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                            height: 80,
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xff09596F),
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(25),
-                                                    topRight:
-                                                        Radius.circular(25))),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(16.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Selected Items",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall
-                                                        ?.copyWith(
-                                                            fontSize: 24,
-                                                            color:
-                                                                Colors.white70,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w100),
-                                                  ),
-                                                  CircleAvatar(
-                                                      child: Icon(Icons.close))
-                                                ],
-                                              ),
-                                            )),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff000000),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center, // Center the column vertically
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .start, // Align text to the left
-                                  children: [
-                                    Text(
-                                      "4 Items added",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(
-                                              color: Colors.grey[500],
-                                              fontSize: 11),
-                                    ),
-                                    SizedBox(
-                                      height: 2,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "View All",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Icon(Icons.arrow_upward,
-                                            color: Colors.white, size: 10)
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                            topLeft:
+                                            Radius.circular(25),
+                                            topRight:
+                                            Radius.circular(25))),
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsets.all(16.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Selected Items",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall
+                                                ?.copyWith(
+                                                fontSize: 24,
+                                                color:
+                                                Colors.white70,
+                                                fontWeight:
+                                                FontWeight
+                                                    .w100),
+                                          ),
+                                          CircleAvatar(
+                                              child: Icon(Icons.close))
+                                        ],
+                                      ),
+                                    )),
+                              ],
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: nextStep,
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff09596F),
-                                borderRadius: BorderRadius.circular(8),
-                                border:
-                                    Border.all(color: const Color(0xff09596F)),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text("Confirm Items",
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff000000),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment
+                              .center, // Center the column vertically
+                          crossAxisAlignment: CrossAxisAlignment
+                              .start, // Align text to the left
+                          children: [
+                            Text(
+                              "4 Items added",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                  color: Colors.grey[500],
+                                  fontSize: 11),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "View All",
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
                                       ?.copyWith(
-                                          color: Colors.white, fontSize: 15)),
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(Icons.arrow_upward,
+                                    color: Colors.white, size: 10)
+                              ],
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-            )
-          ],
-        ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: nextStep,
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff09596F),
+                        borderRadius: BorderRadius.circular(8),
+                        border:
+                        Border.all(color: const Color(0xff09596F)),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text("Confirm Items",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                              color: Colors.white, fontSize: 15)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

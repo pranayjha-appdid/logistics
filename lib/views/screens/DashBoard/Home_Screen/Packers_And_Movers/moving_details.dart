@@ -89,7 +89,10 @@ class _MovingDetailsState extends State<MovingDetails> {
       print(
           "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
     }
-    // print(Get.find<LocationController>().addressList);
+
+    print(Get.find<LocationController>().pickaddressList);
+    print(Get.find<LocationController>().dropaddressList);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
