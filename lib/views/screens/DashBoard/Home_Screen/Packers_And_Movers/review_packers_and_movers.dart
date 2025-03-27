@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:timelines_plus/timelines_plus.dart';
 
@@ -12,7 +13,12 @@ class _ReviewPackersAndMoversState extends State<ReviewPackersAndMovers> {
   final List<Map<String, dynamic>> locationDetails = [
     {
       "address":
-          "969 Ziemann Trail, West Kipview, New Hampshire - 51745, Dominica",
+          "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
+      "isPickUp": true,
+    },
+    {
+      "address":
+          "Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016",
       "isPickUp": true,
     },
     {
@@ -60,98 +66,140 @@ class _ReviewPackersAndMoversState extends State<ReviewPackersAndMovers> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Timeline.tileBuilder(
-            physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.all(0),
-            shrinkWrap: true,
-            builder: TimelineTileBuilder.connected(
-              connectionDirection: ConnectionDirection.before,
-              nodePositionBuilder: (context, index) {
-                return 0;
-              },
-              itemCount: locationDetails.length,
-              indicatorBuilder: (context, index) {
-                final step = locationDetails[index];
-                bool isFirst = index == 0;
-                bool isLast = index == locationDetails.length - 1;
-                return DotIndicator(
-                  size: (isFirst || isLast) ? 40.0 : 20.0,
-                  color:
-                      step["isPickUp"] ? Color(0xff00C060) : Color(0xffEB0404),
-                  child: step["isPickUp"]
-                      ? isFirst
-                          ? Icon(Icons.location_on,
-                              color: Colors.white,
-                              size: (isFirst || isLast) ? 24.0 : 12.0)
-                          : Icon(Icons.circle,
-                              color: Colors.white,
-                              size: (isFirst || isLast) ? 24.0 : 12.0)
-                      :isLast
-                      ? Icon(Icons.location_on,
-                      color: Colors.white,
-                      size: (isFirst || isLast) ? 24.0 : 12.0)
-                      : Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black)),
-                    child: const Icon(Icons.circle,
-                        color: Colors.black, size: 10),
-                  ),
-                );
-              },
-              connectorBuilder: (_, index, type) {
-                return DashedLineConnector(
-                  gap: 4.0,
-                  color: Colors.grey,
-                );
-              },
-              contentsAlign: ContentsAlign.basic,
-              contentsBuilder: (context, index) {
-                final step = locationDetails[index];
-                return Padding(
-                  padding: const EdgeInsets.only(left: 15.0, top: 35),
-                  child: Column(
+          Material(
+            elevation: 4,
+            borderRadius: BorderRadius.circular(16),
+            child: Container(
+              padding: const EdgeInsets.only(
+                  left: 8.0, right: 4.0, top: 8.0, bottom: 16.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: locationDetails.length,
+                itemBuilder: (context, index) {
+                  bool isFirst = index == 0;
+                  bool isLast = index == locationDetails.length - 1;
+                  var step = locationDetails[index];
+                  return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          RichText(
-                            text: TextSpan(
-                              style: const TextStyle(color: Colors.black),
-                              children: [
-                                TextSpan(
-                                  text: step["isPickUp"]
-                                      ? "Pickup 1    "
-                                      : "Drop off 1",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'Kunal Pawar . +91 89455 53123 ',
-                                ),
-                              ],
+                          Container(
+                            margin: const EdgeInsets.only(top: 4),
+                            width: isFirst || isLast ? 40 : 20,
+                            height: isFirst || isLast ? 40 : 20,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: !step["isPickUp"]
+                                  ? const Color(0xFFEB0404)
+                                  : const Color(0xFF00C060),
+                            ),
+                            child: Icon(
+                              isFirst || isLast
+                                  ? Icons.location_on
+                                  : Icons.circle,
+                              color: Colors.white,
+                              size: isFirst || isLast
+                                  ? 20
+                                  : 10, // Adjust icon size
                             ),
                           ),
+                          // if (!isFirst && !isLast)
+                          //   Padding(
+                          //     padding: const EdgeInsets.only(left: 16.0, right: 16),
+                          //     child: Container(
+                          //       height: 10,
+                          //       child: DottedBorder(
+                          //         strokeWidth: 2,
+                          //         dashPattern: const [5, 5],
+                          //         color: Colors.grey,
+                          //         customPath: (size) {
+                          //           return Path()
+                          //             ..moveTo(size.width / 2, 4)
+                          //             ..lineTo(size.width / 2, 50);
+                          //         },
+                          //         child:
+                          //             const SizedBox(width: 2), // Keeps it centered
+                          //       ),
+                          //     ),
+                          //   ),
+                          if (!isLast)
+                            SizedBox(
+                              width: 40,
+                              height: 45, // Keep consistent spacing
+                              child: DottedBorder(
+                                strokeWidth: 2,
+                                dashPattern: const [5, 5],
+                                color: Colors.grey,
+                                customPath: (size) {
+                                  return Path()
+                                    ..moveTo(size.width / 2, 4)
+                                    ..lineTo(size.width / 2, 50);
+                                },
+                                child: const SizedBox
+                                    .shrink(), // Keeps it centered
+                              ),
+                            )
                         ],
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        step["address"],
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(fontSize: 13, color: Color(0xff494949)),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: isFirst ? 10.0 : 0),
+                              child: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      children: [
+                                        TextSpan(
+                                          text: step["isPickUp"]
+                                              ? "Pickup ${index + 1}    "
+                                              : "Drop off ${index + 1}    ",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              'Kunal Pawar . +91 89455 53123 ',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              step["address"],
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge
+                                  ?.copyWith(
+                                      fontSize: 13, color: Color(0xff494949)),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
           SizedBox(
@@ -174,7 +222,7 @@ class _ReviewPackersAndMoversState extends State<ReviewPackersAndMovers> {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: Colors.grey.shade300),
               ),
               child: Row(
                 children: [

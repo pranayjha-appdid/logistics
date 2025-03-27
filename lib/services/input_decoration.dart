@@ -11,6 +11,7 @@ class CustomDecoration {
     String? label,
     String? hint,
     TextStyle? hintStyle,
+    TextStyle? labelStyle,
     Widget? suffix,
     bool floating = false,
     Color borderColor = Colors.black,
@@ -85,7 +86,7 @@ class CustomDecoration {
       label: label != null
           ? Text(
               label,
-              style: GoogleFonts.montserrat(
+              style:labelStyle!=null ? labelStyle: GoogleFonts.montserrat(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: textPrimary,

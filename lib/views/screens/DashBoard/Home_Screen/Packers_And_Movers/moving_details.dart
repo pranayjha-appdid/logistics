@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:logistics/controllers/location_controller.dart';
 
 import '../../../../../generated/assets.dart';
 import '../../../../../services/route_helper.dart';
@@ -76,6 +78,11 @@ class _MovingDetailsState extends State<MovingDetails> {
 
   @override
   Widget build(BuildContext context) {
+
+    for (var loc in Get.find<LocationController>().addressList) {
+      print("Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
+    }
+    print(Get.find<LocationController>().addressList);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

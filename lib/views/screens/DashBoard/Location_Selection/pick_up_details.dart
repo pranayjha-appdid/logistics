@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logistics/services/route_helper.dart';
+import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Location_Selection/search_location.dart';
-import '../../../../controllers/drop_location_controller.dart';
+import '../../../../controllers/location_controller.dart';
 import '../../../../services/input_decoration.dart';
 
 class PickUpDetailsPage extends StatefulWidget {
@@ -23,90 +24,105 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
     required VoidCallback onRemove,
     required bool canRemove,
   }) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text('Drop Location ${index + 1}',
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
-              const Spacer(),
-              if (canRemove)
-                GestureDetector(
-                  onTap: onRemove,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xffCF0012),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.delete_outline,
-                            size: 16, color: Colors.white),
-                        SizedBox(width: 4),
-                        Text("Delete",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 12)),
-                      ],
-                    ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text('Pickup Location ${index + 1}',
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const Spacer(),
+            if (canRemove)
+              GestureDetector(
+                onTap: onRemove,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffCF0012),
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                )
-            ],
-          ),
-          const SizedBox(height: 15),
-          TextField(
-            controller: location.address,
-            decoration: CustomDecoration.inputDecoration(
-              label: 'Location',
-              borderRadius: 8,
-              suffix: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, getCustomRoute(child: const SearchLocation()));
-                },
-                icon: const Icon(Icons.location_on_outlined),
-              ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.delete_outline, size: 16, color: Colors.white),
+                      SizedBox(width: 4),
+                      Text("Delete",
+                          style: TextStyle(color: Colors.white, fontSize: 12)),
+                    ],
+                  ),
+                ),
+              )
+          ],
+        ),
+        const SizedBox(height: 15),
+        TextField(
+          controller: location.address,
+          decoration: CustomDecoration.inputDecoration(
+            label: 'Location',
+            labelStyle: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey.shade700,
+            ),
+            borderRadius: 8,
+            suffix: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context, getCustomRoute(child: const SearchLocation()));
+              },
+              icon: const Icon(Icons.location_on_outlined),
             ),
           ),
-          const SizedBox(height: 20),
-          TextField(
-            controller: location.buildingName,
-            decoration: CustomDecoration.inputDecoration(
-              label: 'Building Name',
-              borderRadius: 8,
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: location.buildingName,
+          decoration: CustomDecoration.inputDecoration(
+            label: 'Building Name',
+            labelStyle: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey.shade700,
             ),
+            borderRadius: 8,
           ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: location.floor,
-                  decoration: CustomDecoration.inputDecoration(
-                    label: 'Floor No',
-                    borderRadius: 8,
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: location.floor,
+                decoration: CustomDecoration.inputDecoration(
+                  label: 'Floor No',
+                  labelStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey.shade700,
                   ),
-                  keyboardType: TextInputType.number,
+                  borderRadius: 8,
                 ),
+                keyboardType: TextInputType.number,
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: TextField(
-                  controller: location.flatNo,
-                  decoration: CustomDecoration.inputDecoration(
-                    label: 'House Number',
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: TextField(
+                controller: location.flatNo,
+                decoration: CustomDecoration.inputDecoration(
+                    label: "Flat No",
+                    hintStyle: TextStyle(fontSize: 12),
                     borderRadius: 8,
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
+                    labelStyle: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey.shade700,
+                    )),
+                keyboardType: TextInputType.number,
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -155,7 +171,12 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: CustomDecoration.inputDecoration(
-                  label: 'Sender Name: Kunal Patil',
+                  label: 'Sender Name',
+                  labelStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey.shade700,
+                  ),
                   borderRadius: 8,
                 ),
               ),
@@ -164,7 +185,11 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                 keyboardType: TextInputType.phone,
                 decoration: CustomDecoration.inputDecoration(
                   label: 'Mobile Number',
-                  hint: 'Enter your mobile number',
+                  labelStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -172,113 +197,54 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
                 ],
               ),
               SizedBox(height: 20),
-              GestureDetector(
-                onTap: () => _selectDate(context),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        selectedDate == null
-                            ? "Select Date"
-                            : "${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}",
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                      ),
-                      Icon(
-                        Icons.calendar_today,
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
 
-              GetBuilder<DropLocationController>(
+              GetBuilder<LocationController>(
                 builder: (controller) {
                   return ListView.builder(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.locations.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: controller.pickupLocations.length + 1,
                     itemBuilder: (context, index) {
-                      if (index == controller.locations.length + 1) {
-                        return Column(
-                          children: [
-                            if (controller.locations.length <
-                                controller.maxAddress)
-                              GestureDetector(
-                                onTap: controller.addAddress,
-                                child: Container(
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xffEBF2F3),
-                                    border: Border.all(
-                                        color: const Color(0xffffffff)),
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.add, size: 13),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        "Add more drop location",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium
-                                            ?.copyWith(
-                                                color: Colors.black,
-                                                fontSize: 14),
-                                      )
-                                    ],
+                      if (index == controller.pickupLocations.length) {
+                        return controller.totalAddresses < 8 &&
+                                controller.pickupLocations.length < 4
+                            ? GestureDetector(
+                                onTap: controller.addPickupAddress,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 4.0, top: 8.0, right: 4.0),
+                                  child: Container(
+                                    padding: EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffEBF2F3),
+                                        borderRadius: BorderRadius.circular(4)),
+                                    child: Row(children: [
+                                      Icon(Icons.add),
+                                      SizedBox(width: 5),
+                                      Text("Add Pickup Location")
+                                    ]),
                                   ),
                                 ),
-                              ),
-                            const SizedBox(height: 20),
-                          ],
-                        );
+                              )
+                            : SizedBox.shrink();
                       } else {
-                        final location = controller.locations[index];
-                        return _address(
-                          index: index,
-                          location: location,
-                          onRemove: () => controller.removeAddress(index - 1),
-                          canRemove: controller.locations.length > 1,
+                        final location = controller.pickupLocations[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
+                          child: _address(
+                            index: index,
+                            location: location,
+                            onRemove: () =>
+                                controller.removePickupAddress(index),
+                            canRemove: controller.pickupLocations.length > 1,
+                          ),
                         );
                       }
                     },
                   );
                 },
               ),
-              // _address(index: index, location: location, onRemove: onRemove, canRemove: canRemove)
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: TextFormField(
-              //         keyboardType: TextInputType.number,
-              //         decoration: CustomDecoration.inputDecoration(
-              //           label: 'Floor No',
-              //           borderRadius: 8,
-              //         ),
-              //       ),
-              //     ),
-              //     const SizedBox(width: 10),
-              //     Expanded(
-              //       child: TextFormField(
-              //         keyboardType: TextInputType.text,
-              //         decoration: CustomDecoration.inputDecoration(
-              //           label: 'House Number',
-              //           borderRadius: 8,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),
@@ -289,7 +255,11 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
           Container(
             padding: EdgeInsets.all(16),
             child: CustomButton(
-              onTap: () {},
+              onTap: () {
+                Get.find<LocationController>().updateAddressList();
+
+                print(Get.find<LocationController>().addressList);
+              },
               color: const Color(0xff09596F),
               child:
                   const Text("SUBMIT", style: TextStyle(color: Colors.white)),

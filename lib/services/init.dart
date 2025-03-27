@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/instance_manager.dart';
-import 'package:logistics/controllers/drop_location_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controllers/location_controller.dart';
 import '../data/api/api_calls.dart';
 import 'constants.dart';
 
@@ -26,7 +26,7 @@ class Init {
     Get.lazyPut<SharedPreferences>(() => sharedPreferences);
 
     try {
-      Get.lazyPut(() => DropLocationController());
+      Get.lazyPut(() => LocationController());
 
       // Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.baseUrl, sharedPreferences: Get.find()));
       // Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
