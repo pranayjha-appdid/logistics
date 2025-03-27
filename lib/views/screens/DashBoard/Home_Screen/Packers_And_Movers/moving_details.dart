@@ -79,10 +79,17 @@ class _MovingDetailsState extends State<MovingDetails> {
   @override
   Widget build(BuildContext context) {
 
-    for (var loc in Get.find<LocationController>().addressList) {
-      print("Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
+    for (var loc in Get.find<LocationController>().pickaddressList) {
+      print(
+          "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
     }
-    print(Get.find<LocationController>().addressList);
+
+
+    for (var loc in Get.find<LocationController>().dropaddressList) {
+      print(
+          "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
+    }
+    // print(Get.find<LocationController>().addressList);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -16,6 +16,7 @@ class PickUpDetailsPage extends StatefulWidget {
 }
 
 class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
+  final formkey = GlobalKey<FormState>();
   DateTime? selectedDate;
 
   Widget _address({
@@ -54,7 +55,11 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
           ],
         ),
         const SizedBox(height: 15),
-        TextField(
+        TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) return "Select Location";
+            return null;
+          },
           controller: location.address,
           decoration: CustomDecoration.inputDecoration(
             label: 'Location',
@@ -74,7 +79,11 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
           ),
         ),
         const SizedBox(height: 20),
-        TextField(
+        TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) return "Enter Building Name";
+            return null;
+          },
           controller: location.buildingName,
           decoration: CustomDecoration.inputDecoration(
             label: 'Building Name',
@@ -90,7 +99,11 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
         Row(
           children: [
             Expanded(
-              child: TextField(
+              child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) return "Enter Floor Name";
+                  return null;
+                },
                 controller: location.floor,
                 decoration: CustomDecoration.inputDecoration(
                   label: 'Floor No',
@@ -106,7 +119,11 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: TextField(
+              child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) return "Enter Flat Name";
+                  return null;
+                },
                 controller: location.flatNo,
                 decoration: CustomDecoration.inputDecoration(
                     label: "Flat No",
@@ -165,87 +182,102 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: CustomDecoration.inputDecoration(
-                  label: 'Sender Name',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey.shade700,
-                  ),
-                  borderRadius: 8,
-                ),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                keyboardType: TextInputType.phone,
-                decoration: CustomDecoration.inputDecoration(
-                  label: 'Mobile Number',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey.shade700,
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) return "Enter Sender Name";
+                    return null;
+                  },
+                  controller: Get.find<LocationController>().sendername,
+                  keyboardType: TextInputType.text,
+                  decoration: CustomDecoration.inputDecoration(
+                    label: 'Sender Name',
+                    labelStyle: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey.shade700,
+                    ),
+                    borderRadius: 8,
                   ),
                 ),
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-              ),
-              SizedBox(height: 20),
-
-              GetBuilder<LocationController>(
-                builder: (controller) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller.pickupLocations.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index == controller.pickupLocations.length) {
-                        return controller.totalAddresses < 8 &&
-                                controller.pickupLocations.length < 4
-                            ? GestureDetector(
-                                onTap: controller.addPickupAddress,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 4.0, top: 8.0, right: 4.0),
-                                  child: Container(
-                                    padding: EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xffEBF2F3),
-                                        borderRadius: BorderRadius.circular(4)),
-                                    child: Row(children: [
-                                      Icon(Icons.add),
-                                      SizedBox(width: 5),
-                                      Text("Add Pickup Location")
-                                    ]),
+                SizedBox(height: 20),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) return "Enter Mobile Number";
+                    if (value!.length != 10)
+                      return "Enter Correct Mobile Number";
+                    return null;
+                  },
+                  keyboardType: TextInputType.phone,
+                  controller: Get.find<LocationController>().sendermobileno,
+                  decoration: CustomDecoration.inputDecoration(
+                    label: 'Mobile Number',
+                    labelStyle: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                ),
+                SizedBox(height: 20),
+                GetBuilder<LocationController>(
+                  builder: (controller) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.pickupLocations.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == controller.pickupLocations.length) {
+                          return controller.totalAddresses < 8 &&
+                                  controller.pickupLocations.length < 4
+                              ? GestureDetector(
+                                  onTap: controller.addPickupAddress,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, top: 8.0, right: 4.0),
+                                    child: Container(
+                                      padding: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xffEBF2F3),
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      child: Row(children: [
+                                        Icon(Icons.add),
+                                        SizedBox(width: 5),
+                                        Text("Add Pickup Location")
+                                      ]),
+                                    ),
                                   ),
-                                ),
-                              )
-                            : SizedBox.shrink();
-                      } else {
-                        final location = controller.pickupLocations[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
-                          child: _address(
-                            index: index,
-                            location: location,
-                            onRemove: () =>
-                                controller.removePickupAddress(index),
-                            canRemove: controller.pickupLocations.length > 1,
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-            ],
+                                )
+                              : SizedBox.shrink();
+                        } else {
+                          final location = controller.pickupLocations[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
+                            child: _address(
+                              index: index,
+                              location: location,
+                              onRemove: () =>
+                                  controller.removePickupAddress(index),
+                              canRemove: controller.pickupLocations.length > 1,
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -256,9 +288,10 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
             padding: EdgeInsets.all(16),
             child: CustomButton(
               onTap: () {
-                Get.find<LocationController>().updateAddressList();
-
-                print(Get.find<LocationController>().addressList);
+                if (formkey.currentState!.validate()) {
+                  Get.find<LocationController>().updatepickupAddressList();
+                  Navigator.pop(context);
+                }
               },
               color: const Color(0xff09596F),
               child:

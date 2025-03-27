@@ -6,30 +6,37 @@ class LocationController extends GetxController implements GetxService {
   int maxPickup = 4;
   int maxDrop = 4;
 
+  TextEditingController sendername = TextEditingController();
+  TextEditingController receivername = TextEditingController();
+  TextEditingController sendermobileno = TextEditingController();
+  TextEditingController receivermobileno = TextEditingController();
+
   final List<LocationFormControllers> _pickupLocations = [];
   final List<LocationFormControllers> _dropLocations = [];
 
   List<LocationFormControllers> get pickupLocations => _pickupLocations;
   List<LocationFormControllers> get dropLocations => _dropLocations;
 
-  List<LocationModel> addressList = [];
+  List<LocationModel> pickaddressList = [];
+  List<LocationModel> dropaddressList = [];
 
   int get totalAddresses => _pickupLocations.length + _dropLocations.length;
 
   @override
   void onInit() {
-    _pickupLocations.add(
-        LocationFormControllers(type: "pickup", onUpdate: updateAddressList));
+    _pickupLocations.add(LocationFormControllers(
+        type: "pickup", onUpdate: updatepickupAddressList));
     _dropLocations.add(
-        LocationFormControllers(type: "drop", onUpdate: updateAddressList));
-    updateAddressList();
+        LocationFormControllers(type: "drop", onUpdate: updatedropAddressList));
+    updatepickupAddressList();
+    updatedropAddressList();
     super.onInit();
   }
 
   void addPickupAddress() {
     if (_pickupLocations.length < maxPickup && totalAddresses < 8) {
-      _pickupLocations.add(
-          LocationFormControllers(type: "pickup", onUpdate: updateAddressList));
+      _pickupLocations.add(LocationFormControllers(
+          type: "pickup", onUpdate: updatepickupAddressList));
       update();
       // updateAddressList();
     }
@@ -37,8 +44,8 @@ class LocationController extends GetxController implements GetxService {
 
   void addDropAddress() {
     if (_dropLocations.length < maxDrop && totalAddresses < 8) {
-      _dropLocations.add(
-          LocationFormControllers(type: "drop", onUpdate: updateAddressList));
+      _dropLocations.add(LocationFormControllers(
+          type: "drop", onUpdate: updatedropAddressList));
       update();
 
       // updateAddressList();
@@ -49,7 +56,7 @@ class LocationController extends GetxController implements GetxService {
     if (_pickupLocations.length > 1) {
       _pickupLocations[index].dispose();
       _pickupLocations.removeAt(index);
-      updateAddressList();
+      updatepickupAddressList();
     }
   }
 
@@ -57,19 +64,21 @@ class LocationController extends GetxController implements GetxService {
     if (_dropLocations.length > 1) {
       _dropLocations[index].dispose();
       _dropLocations.removeAt(index);
-      updateAddressList();
+      updatedropAddressList();
     }
   }
 
-  void updateAddressList() {
+  void updatepickupAddressList({bool isDrop = false}) {
+    pickaddressList = [];
     List<LocationModel> pickups = getPickupModels();
+    pickaddressList.addAll(pickups);
+    update();
+  }
+
+  void updatedropAddressList() {
+    dropaddressList = [];
     List<LocationModel> drops = getDropModels();
-
-    addressList = [];
-
-    addressList.addAll(pickups);
-    addressList.addAll(drops);
-
+    dropaddressList.addAll(drops);
     update();
   }
 
@@ -82,7 +91,12 @@ class LocationController extends GetxController implements GetxService {
   }
 
   void printLocations() {
-    for (var loc in addressList) {
+    for (var loc in pickaddressList) {
+      print(
+          "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
+    }
+
+    for (var loc in dropaddressList) {
       print(
           "Type: ${loc.type}, Address: ${loc.address}, Building: ${loc.buildingName}, Floor: ${loc.floor}, Flat: ${loc.flatno}");
     }

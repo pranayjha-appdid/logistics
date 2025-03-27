@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,8 @@ class DropDetails extends StatefulWidget {
 }
 
 class _DropDetailsState extends State<DropDetails> {
+  final formkey = GlobalKey<FormState>();
+
   Widget _address({
     required int index,
     required LocationFormControllers location,
@@ -52,8 +55,12 @@ class _DropDetailsState extends State<DropDetails> {
           ],
         ),
         const SizedBox(height: 10),
-        TextField(
+        TextFormField(
           controller: location.address,
+          validator: (value) {
+            if (value!.isEmpty) return "Please Select Location";
+            return null;
+          },
           decoration: CustomDecoration.inputDecoration(
             label: 'Location',
             labelStyle: TextStyle(
@@ -72,8 +79,12 @@ class _DropDetailsState extends State<DropDetails> {
           ),
         ),
         const SizedBox(height: 20),
-        TextField(
+        TextFormField(
           controller: location.buildingName,
+          validator: (value) {
+            if (value!.isEmpty) return "Enter Building Name";
+            return null;
+          },
           decoration: CustomDecoration.inputDecoration(
             label: 'Building Name',
             labelStyle: TextStyle(
@@ -88,8 +99,12 @@ class _DropDetailsState extends State<DropDetails> {
         Row(
           children: [
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 controller: location.floor,
+                validator: (value) {
+                  if (value!.isEmpty) return "Enter Floor Name";
+                  return null;
+                },
                 decoration: CustomDecoration.inputDecoration(
                   label: 'Floor No',
                   labelStyle: TextStyle(
@@ -104,8 +119,12 @@ class _DropDetailsState extends State<DropDetails> {
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 controller: location.flatNo,
+                validator: (value) {
+                  if (value!.isEmpty) return "Enter Flat Name";
+                  return null;
+                },
                 decoration: CustomDecoration.inputDecoration(
                   label: 'Flat No',
                   labelStyle: TextStyle(
@@ -148,87 +167,104 @@ class _DropDetailsState extends State<DropDetails> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: CustomDecoration.inputDecoration(
-                  label: 'Receiver Name',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey.shade700,
+          child: Form(
+            key: formkey,
+            child: Column(
+              children: [
+                TextFormField(
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) return "Enter Sender Name";
+                    return null;
+                  },
+                  controller: Get.find<LocationController>().receivername,
+                  decoration: CustomDecoration.inputDecoration(
+                    label: 'Receiver Name',
+                    labelStyle: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey.shade700,
+                    ),
+                    borderRadius: 8,
                   ),
-                  borderRadius: 8,
                 ),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                keyboardType: TextInputType.phone,
-                decoration: CustomDecoration.inputDecoration(
-                  label: 'Mobile Number',
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey.shade700,
+                SizedBox(height: 20),
+                TextFormField(
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value!.isEmpty) return "Enter Mobile Number";
+                    if (value!.length != 10)
+                      return "Enter Correct Mobile Number";
+                    return null;
+                  },
+                  controller: Get.find<LocationController>().receivermobileno,
+                  decoration: CustomDecoration.inputDecoration(
+                    label: 'Mobile Number',
+                    labelStyle: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey.shade700,
+                    ),
+                    hint: 'Enter your mobile number',
                   ),
-                  hint: 'Enter your mobile number',
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
                 ),
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              GetBuilder<LocationController>(
-                builder: (controller) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller.dropLocations.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index == controller.dropLocations.length) {
-                        return controller.totalAddresses < 8 &&
-                                controller.dropLocations.length < 4
-                            ? GestureDetector(
-                                onTap: controller.addDropAddress,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 4.0, top: 8.0, right: 4.0),
-                                  child: Container(
-                                    padding: EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xffEBF2F3),
-                                        borderRadius: BorderRadius.circular(4)),
-                                    child: Row(children: [
-                                      Icon(Icons.add),
-                                      SizedBox(width: 5),
-                                      Text("Add Drop Location")
-                                    ]),
+                SizedBox(
+                  height: 10,
+                ),
+                GetBuilder<LocationController>(
+                  builder: (controller) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.dropLocations.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == controller.dropLocations.length) {
+                          return controller.totalAddresses < 8 &&
+                                  controller.dropLocations.length < 4
+                              ? GestureDetector(
+                                  onTap: controller.addDropAddress,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, top: 8.0, right: 4.0),
+                                    child: Container(
+                                      padding: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xffEBF2F3),
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      child: Row(children: [
+                                        Icon(Icons.add),
+                                        SizedBox(width: 5),
+                                        Text("Add Drop Location")
+                                      ]),
+                                    ),
                                   ),
-                                ),
-                              )
-                            : SizedBox.shrink();
-                      } else {
-                        final location = controller.dropLocations[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
-                          child: _address(
-                            index: index,
-                            location: location,
-                            onRemove: () => controller.removeDropAddress(index),
-                            canRemove: controller.dropLocations.length > 1,
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-            ],
+                                )
+                              : SizedBox.shrink();
+                        } else {
+                          final location = controller.dropLocations[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
+                            child: _address(
+                              index: index,
+                              location: location,
+                              onRemove: () =>
+                                  controller.removeDropAddress(index),
+                              canRemove: controller.dropLocations.length > 1,
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -239,8 +275,9 @@ class _DropDetailsState extends State<DropDetails> {
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: CustomButton(
               onTap: () {
-                Get.find<LocationController>().updateAddressList();
-                print(Get.find<LocationController>().addressList);
+                if (formkey.currentState!.validate()) {
+                  Get.find<LocationController>().updatedropAddressList();
+                }
               },
               color: const Color(0xff09596F),
               child:
