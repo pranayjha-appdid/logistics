@@ -5,7 +5,9 @@ import 'drawer_widget.dart';
 import 'Home_Screen/home_screen.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  final int initialIndex;
+
+  const Dashboard({Key? key, this.initialIndex = 0}) : super(key: key);
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -15,13 +17,20 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _DashboardState extends State<Dashboard> {
   List<Widget> pages = [
-    HomeScreen(scaffoldKey: _scaffoldKey,),
+    HomeScreen(
+      scaffoldKey: _scaffoldKey,
+    ),
     BookingScreen(),
     MyProfileScreen(),
-
   ];
 
-  int idx = 0;
+  late int idx;
+
+  @override
+  void initState() {
+    super.initState();
+    idx = widget.initialIndex;
+  }
 
   void _onItemTapped(int index) {
     setState(() {

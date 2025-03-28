@@ -2,16 +2,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/base/common_button.dart';
+import 'package:logistics/views/screens/Booking_Screen/booking_screen.dart';
+import 'package:logistics/views/screens/DashBoard/dashboard.dart';
 
 import '../../../../../generated/assets.dart';
 import '../../Packer_And_Movers_Bookings/packer_and_mover_bookings.dart';
 
 class BookingPlacedPage extends StatefulWidget {
-  const BookingPlacedPage({super.key});
+  final bool? ispakerandmover;  // Keep it nullable
+
+  const BookingPlacedPage({Key? key, this.ispakerandmover}) : super(key: key);
 
   @override
   State<BookingPlacedPage> createState() => _BookingPlacedPageState();
 }
+
 
 class _BookingPlacedPageState extends State<BookingPlacedPage> {
   bool _showSuccess = true;
@@ -134,7 +139,7 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
               child: CustomButton(
                 onTap: () {
                   Navigator.push(
-                      context, getCustomRoute(child: PackerAndMoverBookings()));
+                      context, getCustomRoute(child: widget.ispakerandmover!=null? PackerAndMoverBookings():Dashboard(initialIndex: 1,)));
                 },
                 title: "Okay",
               ),

@@ -40,7 +40,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BookingPlacedPage()),
+        MaterialPageRoute(builder: (context) => BookingPlacedPage(ispakerandmover: true,)),
       );
     }
   }
