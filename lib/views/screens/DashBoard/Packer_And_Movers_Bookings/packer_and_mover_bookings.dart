@@ -261,13 +261,12 @@ class _PackerAndMoverBookingsState extends State<PackerAndMoverBookings> {
     );
   }
 
-  // Step Indicator
   Widget _buildStep(bool isActive, Color color) {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: isActive
-            ? Border.all(color: color, width: 3) // Active step border
+            ? Border.all(color: color, width: 3)
             : null,
       ),
       child: isActive
@@ -280,7 +279,6 @@ class _PackerAndMoverBookingsState extends State<PackerAndMoverBookings> {
     );
   }
 
-  // Connecting Line
   Widget _buildLine(Color color) {
     return Expanded(
       child: Container(
