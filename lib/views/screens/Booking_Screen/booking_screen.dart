@@ -12,7 +12,7 @@ class _BookingScreenState extends State<BookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Booking SCreen"),
+        child: Text("Booking Screen"),
       ),
     );
   }
