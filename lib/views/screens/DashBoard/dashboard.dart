@@ -12,10 +12,11 @@ class Dashboard extends StatefulWidget {
   @override
   State<Dashboard> createState() => _DashboardState();
 }
-
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+
 class _DashboardState extends State<Dashboard> {
+
   List<Widget> pages = [
     HomeScreen(
       scaffoldKey: _scaffoldKey,

@@ -136,14 +136,17 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
               padding: const EdgeInsets.all(16.0),
               child: CustomButton(
                 onTap: () {
+                  widget.ispakerandmover != null?
                   Navigator.push(
-                      context,
-                      getCustomRoute(
-                          child: widget.ispakerandmover != null
-                              ? PackerAndMoverBookings()
-                              : Dashboard(
-                                  initialIndex: 1,
-                                )));
+                      context, getCustomRoute(child: PackerAndMoverBookings())):
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    getCustomRoute(
+                        child: Dashboard(
+                      initialIndex: 1,
+                    )),
+                    (route) => false,
+                  );
                 },
                 title: "Okay",
               ),
