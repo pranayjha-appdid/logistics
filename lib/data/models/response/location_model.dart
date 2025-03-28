@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart'; // For using json.encode and json.decode
 
 class LocationModel {
   String address;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/generated/assets.dart';
 import 'package:logistics/services/route_helper.dart';
+import 'package:logistics/views/screens/DashBoard/Home_Screen/Goods/goods.dart';
 
 import '../Packers_And_Movers/packers_and_mover_page.dart';
 
@@ -68,10 +69,13 @@ class _MidSectionState extends State<MidSection> {
           type: "Two Wheeler",
           imagepath: Assets.imagesTwoWheeler,
         ),
-        choosetransporttype(
-          bgcolor: const Color(0xffB9D9FF),
-          type: "Truck",
-          imagepath: Assets.imagesTruck,
+        GestureDetector(
+          onTap: (){},
+          child: choosetransporttype(
+            bgcolor: const Color(0xffB9D9FF),
+            type: "Truck",
+            imagepath: Assets.imagesTruck,
+          ),
         ),
         GestureDetector(
           onTap: (){
@@ -122,10 +126,16 @@ class _MidSectionState extends State<MidSection> {
             ),
           ),
         ),
-        choosetransporttype(
-          bgcolor: const Color(0xffFFE3BD),
-          type: "Goods",
-          imagepath: Assets.imagesGoods,
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, getCustomRoute(child: Goods()));
+
+          },
+          child: choosetransporttype(
+            bgcolor: const Color(0xffFFE3BD),
+            type: "Goods",
+            imagepath: Assets.imagesGoods,
+          ),
         ),
       ],
     );

@@ -29,6 +29,14 @@ class Assets {
   static const String imagesStarFill = 'assets/images/star_fill.png';
   static const String imagesSucessGif = 'assets/images/sucess_gif.gif';
   static const String imagesTruck = 'assets/images/truck.png';
+  static const String imagesTruck1 = 'assets/images/truck1.svg';
+  static const String imagesTruck2 = 'assets/images/truck2.svg';
+  static const String imagesTruck3 = 'assets/images/truck3.svg';
+  static const String imagesTruck4 = 'assets/images/truck4.svg';
+  static const String imagesTruck5 = 'assets/images/truck5.svg';
+  static const String imagesTruck6 = 'assets/images/truck6.svg';
+  static const String imagesTruck7 = 'assets/images/truck7.svg';
+  static const String imagesTruck8 = 'assets/images/truck8.svg';
   static const String imagesTruckpackers = 'assets/images/truckpackers.png';
   static const String imagesTwoWheeler = 'assets/images/two_wheeler.png';
   static const String imagesUser = 'assets/images/user.png';

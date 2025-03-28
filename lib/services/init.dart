@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/instance_manager.dart';
+import 'package:logistics/controllers/selectTruckTypeController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/location_controller.dart';
@@ -27,6 +28,8 @@ class Init {
 
     try {
       Get.lazyPut(() => LocationController());
+      Get.lazyPut(() => SelectTruckTypeController());
+
 
       // Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.baseUrl, sharedPreferences: Get.find()));
       // Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));

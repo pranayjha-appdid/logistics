@@ -16,7 +16,6 @@ class PickUpDetailsPage extends StatefulWidget {
 }
 
 class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
-
   final formkey = GlobalKey<FormState>();
   DateTime? selectedDate;
 
@@ -144,10 +143,8 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       extendBody: true,
       appBar: AppBar(

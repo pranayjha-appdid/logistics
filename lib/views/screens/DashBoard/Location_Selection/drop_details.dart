@@ -277,6 +277,7 @@ class _DropDetailsState extends State<DropDetails> {
               onTap: () {
                 if (formkey.currentState!.validate()) {
                   Get.find<LocationController>().updatedropAddressList();
+                  Navigator.pop(context);
                 }
               },
               color: const Color(0xff09596F),
