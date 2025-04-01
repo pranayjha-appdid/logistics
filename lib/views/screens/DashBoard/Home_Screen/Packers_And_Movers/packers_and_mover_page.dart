@@ -1,8 +1,11 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/review_packers_and_movers.dart';
+import '../../../../../controllers/location_controller.dart';
 import 'add_items.dart';
 import 'booking_placed_page.dart';
 import 'moving_details.dart';
@@ -18,6 +21,24 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
   int activeStep = 0;
 
   final List<String> stepTitles = ['Moving Details', 'Add Items', 'Review'];
+
+  @override
+  void dispose() {
+    Get.find<LocationController>().pickupLocations.clear();
+    Get.find<LocationController>().dropLocations.clear();
+    Get.find<LocationController>().sendermobileno.clear();
+    Get.find<LocationController>().receivername.clear();
+    Get.find<LocationController>().sendername.clear();
+    Get.find<LocationController>().receivermobileno.clear();
+
+
+    Get.find<LocationController>().pickupLocations.add(LocationFormControllers(type: "pickup"));
+    Get.find<LocationController>().dropLocations.add(LocationFormControllers(type: "drop"));
+
+    Get.find<LocationController>().update();
+    super.dispose();
+  }
+
 
   Widget getStepContent(int step) {
     switch (step) {
@@ -46,12 +67,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
     }
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
 
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -25,6 +25,7 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
     super.initState();
     final controller = Get.find<LocationController>();
 
+
     localPickupLocations = controller.pickupLocations.isNotEmpty
         ? List.from(controller.pickupLocations)
         : [LocationFormControllers(type: "pickup")];
@@ -58,12 +59,7 @@ class _PickUpDetailsPageState extends State<PickUpDetailsPage> {
     }
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    Get.find<LocationController>().pickaddressList.clear();
-  }
+
 
   Widget _address({
     required int index,

@@ -246,17 +246,12 @@ class _GoodsReviewScreenState extends State<GoodsReviewScreen> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        step["isPickUp"] == true
-                                            ? controller.pickaddressList
-                                                        .length >
-                                                    0
-                                                ? step["address"].toString()
-                                                : "Select pick up locations  "
-                                            : controller.dropaddressList
-                                                        .length >
-                                                    0
-                                                ? step["address"].toString()
-                                                : "Select drop off locations  ",
+                                        (step["address"] == null ||
+                                            step["address"].toString().isEmpty)
+                                            ? (step["isPickUp"] == true
+                                            ? "Select pick up locations"
+                                            : "Select drop off locations")
+                                            : step["address"].toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: Theme.of(context)
                                             .textTheme
@@ -411,7 +406,18 @@ class _GoodsReviewScreenState extends State<GoodsReviewScreen> {
               padding: const EdgeInsets.all(16.0),
               child: CustomButton(
                 onTap: () {
-
+                  Get.find<LocationController>().pickupLocations.clear();
+                  Get.find<LocationController>().dropLocations.clear();
+                  Get.find<LocationController>().sendermobileno.clear();
+                  Get.find<LocationController>().receivername.clear();
+                  Get.find<LocationController>().sendername.clear();
+                  Get.find<LocationController>().receivermobileno.clear();
+                  Get.find<LocationController>().pickupLocations.add(LocationFormControllers(type: "pickup"));
+                  Get.find<LocationController>().dropLocations.add(LocationFormControllers(type: "drop"));
+                  Get.find<SelectTruckTypeController>().selectedTruckName=null;
+                  Get.find<SelectTruckTypeController>().selectedGoodsType=null;
+                  Get.find<LocationController>().update();
+                  Get.find<SelectTruckTypeController>().update();
                   Navigator.push(
                       context, getCustomRoute(child: BookingPlacedPage()));
                 },

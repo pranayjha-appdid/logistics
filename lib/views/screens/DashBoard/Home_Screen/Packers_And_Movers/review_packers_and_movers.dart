@@ -348,13 +348,12 @@ class _ReviewPackersAndMoversState extends State<ReviewPackersAndMovers> {
                                   const SizedBox(height: 5),
 
                                   Text(
-                                    step["isPickUp"] == true
-                                        ? controller.pickaddressList.length > 0
-                                        ? step["address"].toString()
-                                        : "Select pick up locations  "
-                                        : controller.dropaddressList.length > 0
-                                        ? step["address"].toString()
-                                        : "Select drop off locations  ",
+                                    (step["address"] == null ||
+                                        step["address"].toString().isEmpty)
+                                        ? (step["isPickUp"] == true
+                                        ? "Select pick up locations"
+                                        : "Select drop off locations")
+                                        : step["address"].toString(),
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme

@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:developer' as dev;
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -192,8 +193,8 @@ class _MovingDetailsState extends State<MovingDetails> {
                                                         fontSize: 13)),
                                             TextSpan(
                                                 text: step["isPickUp"] == true
-                                                    ? "${Get.find<LocationController>().sendername.text}.   ${Get.find<LocationController>().sendermobileno.text}"
-                                                    : "${Get.find<LocationController>().receivername.text}.   ${Get.find<LocationController>().receivermobileno.text}",
+                                                    ? "${Get.find<LocationController>().sendername.text}   ${Get.find<LocationController>().sendermobileno.text}"
+                                                    : "${Get.find<LocationController>().receivername.text}   ${Get.find<LocationController>().receivermobileno.text}",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayMedium
@@ -211,15 +212,13 @@ class _MovingDetailsState extends State<MovingDetails> {
                                   ),
                                 ),
                                 const SizedBox(height: 5),
-
                                 Text(
-                                  step["isPickUp"] == true
-                                      ? controller.pickaddressList.length > 0
-                                          ? step["address"].toString()
-                                          : "Select pick up locations  "
-                                      : controller.dropaddressList.length > 0
-                                          ? step["address"].toString()
-                                          : "Select drop off locations  ",
+                                  (step["address"] == null ||
+                                          step["address"].toString().isEmpty)
+                                      ? (step["isPickUp"] == true
+                                          ? "Select pick up locations"
+                                          : "Select drop off locations")
+                                      : step["address"].toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
@@ -229,11 +228,11 @@ class _MovingDetailsState extends State<MovingDetails> {
                                         color: const Color(0xff494949),
                                       ),
                                 ),
-                                if(index!=allLocations.length-1)
-                                Divider(
-                                  color:Color(0xffE4E4E4) ,
-                                  thickness: 1,
-                                ),
+                                if (index != allLocations.length - 1)
+                                  Divider(
+                                    color: Color(0xffE4E4E4),
+                                    thickness: 1,
+                                  ),
                               ],
                             ),
                           ),
@@ -259,9 +258,8 @@ class _MovingDetailsState extends State<MovingDetails> {
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
-                    color: selectedOptionIndex == 0
-                        ? primaryColor
-                        : Colors.white,
+                    color:
+                        selectedOptionIndex == 0 ? primaryColor : Colors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: primaryColor),
                   ),
@@ -289,9 +287,8 @@ class _MovingDetailsState extends State<MovingDetails> {
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
-                    color: selectedOptionIndex == 1
-                        ? primaryColor
-                        : Colors.white,
+                    color:
+                        selectedOptionIndex == 1 ? primaryColor : Colors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: primaryColor),
                   ),
