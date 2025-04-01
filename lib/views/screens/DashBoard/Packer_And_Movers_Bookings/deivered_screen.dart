@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/services/theme.dart';
-import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/rating_dailogue.dart';
 import 'package:logistics/views/screens/DashBoard/dashboard.dart';
-
 import '../../../../generated/assets.dart';
 
 class DeiveredScreen extends StatefulWidget {
@@ -20,7 +17,6 @@ class DeiveredScreen extends StatefulWidget {
 class _DeiveredScreenState extends State<DeiveredScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(
       Duration(seconds: 3),

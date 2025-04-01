@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/auth/otp_verification_page.dart';
 
@@ -69,13 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                       text: 'Terms & conditons',
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
                             fontWeight: FontWeight.normal,
-                            color: Color(0xff09596F),
+                            color: primaryColor,
                             decoration: TextDecoration.underline,
                           ),
-                      // style: TextStyle(
-                      //   color: Color(0xff09596F),
-                      //   decoration: TextDecoration.underline,
-                      // ),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     TextSpan(
@@ -88,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       text: 'Privacy policy',
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
                             fontWeight: FontWeight.normal,
-                            color: Color(0xff09596F),
+                            color: primaryColor,
                             decoration: TextDecoration.underline,
                           ),
                       recognizer: TapGestureRecognizer()..onTap = () {},
@@ -114,10 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 16.0);
                   }
                 },
-                child: Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
+                title: "Next",
+                // child: Text(
+                //   "Next",
+                //   style: TextStyle(color: Colors.white, fontSize: 14),
+                // ),
               )
             ],
           ),

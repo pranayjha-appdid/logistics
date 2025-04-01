@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logistics/services/theme.dart';
 
 class AddItems extends StatefulWidget {
   const AddItems({super.key});
@@ -150,7 +151,7 @@ class _AddItemsState extends State<AddItems> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff09596F),
+                    color: primaryColor,
                   ),
                   padding: EdgeInsets.all(10),
                   child: Row(
@@ -213,7 +214,7 @@ class SectionDropdown extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-            color: Color(0xff09596F),
+            color: primaryColor,
           ),
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           child: Text(
@@ -286,7 +287,7 @@ class CategoryDropdown extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3),
-                          color: Color(0xff09596F),
+                          color: primaryColor,
                         ),
                         width: 30,
                         height: 30,
@@ -316,7 +317,7 @@ class CategoryDropdown extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3),
-                          color: Color(0xff09596F),
+                          color: primaryColor,
                         ),
                         width: 30,
                         height: 30,

@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/home_items_list.dart';
 import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/tracking_details.dart';
-import 'package:timelines_plus/timelines_plus.dart'; // Add this import for date formatting
+import 'package:timelines_plus/timelines_plus.dart';
 
 class BookingDetails extends StatefulWidget {
   const BookingDetails({super.key});
@@ -58,11 +58,9 @@ class _BookingDetailsState extends State<BookingDetails> {
     },
   ];
 
-  // Define the booking and estimated delivery date variables
   DateTime bookingDate = DateTime(2025, 3, 13, 17, 12);
   DateTime estimateDeliveryDate = DateTime(2025, 9, 13);
 
-  // Method to format date
   String formatDate(DateTime date) {
     final DateFormat formatter = DateFormat('d MMMM yyyy hh:mm a');
     return formatter.format(date);

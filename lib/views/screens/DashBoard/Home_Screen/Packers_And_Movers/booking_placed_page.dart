@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logistics/services/route_helper.dart';
+import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/dashboard.dart';
 
@@ -22,8 +23,8 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
   late Timer _countdownTimer;
   late Timer _navigationTimer;
 
-  int _remainingTime = 15 * 60; // 15 minutes in seconds
-  double _progress = 1.0; // Start full
+  int _remainingTime = 15 * 60;
+  double _progress = 1.0;
 
   @override
   void initState() {
@@ -94,8 +95,7 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
                         value: _progress,
                         strokeWidth: 10,
                         backgroundColor: Colors.white, // Initial color
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xff09596F)), // Changes to white
+                        valueColor: AlwaysStoppedAnimation<Color>(primaryColor), // Changes to white
                       ),
                     ),
                     Text(
@@ -136,17 +136,17 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
               padding: const EdgeInsets.all(16.0),
               child: CustomButton(
                 onTap: () {
-                  widget.ispakerandmover != null?
-                  Navigator.push(
-                      context, getCustomRoute(child: PackerAndMoverBookings())):
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    getCustomRoute(
-                        child: Dashboard(
-                      initialIndex: 1,
-                    )),
-                    (route) => false,
-                  );
+                  widget.ispakerandmover != null
+                      ? Navigator.push(context,
+                          getCustomRoute(child: PackerAndMoverBookings()))
+                      : Navigator.pushAndRemoveUntil(
+                          context,
+                          getCustomRoute(
+                              child: Dashboard(
+                            initialIndex: 1,
+                          )),
+                          (route) => false,
+                        );
                 },
                 title: "Okay",
               ),

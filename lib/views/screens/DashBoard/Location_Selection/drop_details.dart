@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logistics/views/screens/DashBoard/Location_Selection/search_location.dart';
 
@@ -18,6 +19,49 @@ class DropDetails extends StatefulWidget {
 
 class _DropDetailsState extends State<DropDetails> {
   final formkey = GlobalKey<FormState>();
+  List<LocationFormControllers> localdropLocations=[];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final controller = Get.find<LocationController>();
+
+    localdropLocations = controller.dropLocations.isNotEmpty
+        ? List.from(controller.dropLocations)
+        : [LocationFormControllers(type: "drop")];
+  }
+
+
+
+  void addDropLocation() {
+    if (localdropLocations.length < 4) {
+      setState(() {
+        localdropLocations.add(LocationFormControllers(type: "drop"));
+      });
+    }
+  }
+
+  void removeDropLocation(int index) {
+    if (localdropLocations.length > 1) {
+      setState(() {
+        localdropLocations.removeAt(index);
+      });
+    }
+  }
+
+  void submitDropLocations() {
+    if (formkey.currentState!.validate()) {
+      final controller = Get.find<LocationController>();
+      controller.dropLocations
+        ..clear()
+        ..addAll(localdropLocations);
+
+      controller.updatedropAddressList();
+      Navigator.pop(context);
+    }
+  }
+
 
   Widget _address({
     required int index,
@@ -215,54 +259,98 @@ class _DropDetailsState extends State<DropDetails> {
                 SizedBox(
                   height: 10,
                 ),
-                GetBuilder<LocationController>(
-                  builder: (controller) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.dropLocations.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == controller.dropLocations.length) {
-                          return controller.totalAddresses < 8 &&
-                                  controller.dropLocations.length < 4
-                              ? GestureDetector(
-                                  onTap: controller.addDropAddress,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 4.0, top: 8.0, right: 4.0),
-                                    child: Container(
-                                      padding: EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xffEBF2F3),
-                                          borderRadius:
-                                              BorderRadius.circular(4)),
-                                      child: Row(children: [
-                                        Icon(Icons.add),
-                                        SizedBox(width: 5),
-                                        Text("Add Drop Location")
-                                      ]),
-                                    ),
-                                  ),
-                                )
-                              : SizedBox.shrink();
-                        } else {
-                          final location = controller.dropLocations[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
-                            child: _address(
-                              index: index,
-                              location: location,
-                              onRemove: () =>
-                                  controller.removeDropAddress(index),
-                              canRemove: controller.dropLocations.length > 1,
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  },
-                ),
+                // GetBuilder<LocationController>(
+                //   builder: (controller) {
+                //     return ListView.builder(
+                //       shrinkWrap: true,
+                //       physics: NeverScrollableScrollPhysics(),
+                //       itemCount: localdropLocations.length + 1,
+                //       itemBuilder: (context, index) {
+                //         if (index == controller.dropLocations.length) {
+                //           return controller.totalAddresses < 8 &&
+                //                   controller.dropLocations.length < 4
+                //               ? GestureDetector(
+                //                   onTap: controller.addDropAddress,
+                //                   child: Padding(
+                //                     padding: const EdgeInsets.only(
+                //                         left: 4.0, top: 8.0, right: 4.0),
+                //                     child: Container(
+                //                       padding: EdgeInsets.all(12),
+                //                       decoration: BoxDecoration(
+                //                           color: Color(0xffEBF2F3),
+                //                           borderRadius:
+                //                               BorderRadius.circular(4)),
+                //                       child: Row(children: [
+                //                         Icon(Icons.add),
+                //                         SizedBox(width: 5),
+                //                         Text("Add Drop Location")
+                //                       ]),
+                //                     ),
+                //                   ),
+                //                 )
+                //               : SizedBox.shrink();
+                //         } else {
+                //           final location = controller.dropLocations[index];
+                //           return Padding(
+                //             padding: const EdgeInsets.only(
+                //                 top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
+                //             child: _address(
+                //               index: index,
+                //               location: location,
+                //               onRemove: () =>
+                //                   controller.removeDropAddress(index),
+                //               canRemove: controller.dropLocations.length > 1,
+                //             ),
+                //           );
+                //         }
+                //       },
+                //     );
+                //   },
+                // ),
+
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: localdropLocations.length + 1,
+              itemBuilder: (context, index) {
+                if (index == localdropLocations.length) {
+                  return
+                      localdropLocations.length < 4
+                      ? GestureDetector(
+                    onTap: addDropLocation,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 4.0, top: 8.0, right: 4.0),
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                            color: Color(0xffEBF2F3),
+                            borderRadius:
+                            BorderRadius.circular(4)),
+                        child: Row(children: [
+                          Icon(Icons.add),
+                          SizedBox(width: 5),
+                          Text("Add Drop Location")
+                        ]),
+                      ),
+                    ),
+                  )
+                      : SizedBox.shrink();
+                } else {
+                  final location = localdropLocations[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: 8.0, left: 4.0, right: 4.0, bottom: 8.0),
+                    child: _address(
+                      index: index,
+                      location: location,
+                      onRemove: () => removeDropLocation(index),
+                      canRemove: localdropLocations.length > 1,
+                    ),
+                  );
+                }
+              },
+            ),
               ],
             ),
           ),
@@ -274,15 +362,8 @@ class _DropDetailsState extends State<DropDetails> {
           Container(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: CustomButton(
-              onTap: () {
-                if (formkey.currentState!.validate()) {
-                  Get.find<LocationController>().updatedropAddressList();
-                  Navigator.pop(context);
-                }
-              },
-              color: const Color(0xff09596F),
-              child:
-                  const Text("SUBMIT", style: TextStyle(color: Colors.white)),
+              onTap: submitDropLocations,
+              title: "SUBMIT",
             ),
           ),
         ],

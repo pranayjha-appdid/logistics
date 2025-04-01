@@ -194,10 +194,11 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     (route) => false,
                   );
                 },
-                child: Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
+                title: "Next",
+                // child: Text(
+                //   "Next",
+                //   style: TextStyle(color: Colors.white, fontSize: 14),
+                // ),
               ),
             ],
           ),

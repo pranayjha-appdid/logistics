@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logistics/services/route_helper.dart';
+import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 
 import '../../../generated/assets.dart';
@@ -120,7 +121,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                     });
                   },
                   child: Container(
-                    color: Color(0xff09596F), // Set container color to orange
+                    color: primaryColor, // Set container color to orange
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     child: Row(
                       children: [
@@ -247,10 +248,11 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                       Navigator.pushReplacement(
                           context, getCustomRoute(child: Dashboard()));
                     },
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                    title: "Continue",
+                    // child: Text(
+                    //   "Continue",
+                    //   style: TextStyle(color: Colors.white, fontSize: 14),
+                    // ),
                   ),
                 )
               ],

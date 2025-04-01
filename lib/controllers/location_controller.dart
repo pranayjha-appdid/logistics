@@ -20,7 +20,7 @@ class LocationController extends GetxController implements GetxService {
   List<LocationModel> pickaddressList = [];
   List<LocationModel> dropaddressList = [];
 
-  int get totalAddresses => _pickupLocations.length + _dropLocations.length;
+  int get totalAddresses => pickaddressList.length + pickaddressList.length;
 
   @override
   void onInit() {
@@ -31,35 +31,37 @@ class LocationController extends GetxController implements GetxService {
     super.onInit();
   }
 
-  void addPickupAddress() {
-    if (_pickupLocations.length < maxPickup && totalAddresses < 8) {
-      _pickupLocations.add(LocationFormControllers(type: "pickup"));
-      update();
-    }
-  }
 
-  void addDropAddress() {
-    if (_dropLocations.length < maxDrop && totalAddresses < 8) {
-      _dropLocations.add(LocationFormControllers(type: "drop"));
-      update();
-    }
-  }
 
-  void removePickupAddress(int index) {
-    if (_pickupLocations.length > 1) {
-      _pickupLocations[index].dispose();
-      _pickupLocations.removeAt(index);
-      updatepickupAddressList();
-    }
-  }
-
-  void removeDropAddress(int index) {
-    if (_dropLocations.length > 1) {
-      _dropLocations[index].dispose();
-      _dropLocations.removeAt(index);
-      updatedropAddressList();
-    }
-  }
+  // void addPickupAddress() {
+  //   if (_pickupLocations.length < maxPickup && totalAddresses < 8) {
+  //     _pickupLocations.add(LocationFormControllers(type: "pickup"));
+  //     update();
+  //   }
+  // }
+  //
+  // void addDropAddress() {
+  //   if (_dropLocations.length < maxDrop && totalAddresses < 8) {
+  //     _dropLocations.add(LocationFormControllers(type: "drop"));
+  //     update();
+  //   }
+  // }
+  //
+  // void removePickupAddress(int index) {
+  //   if (_pickupLocations.length > 1) {
+  //     _pickupLocations[index].dispose();
+  //     _pickupLocations.removeAt(index);
+  //     updatepickupAddressList();
+  //   }
+  // }
+  //
+  // void removeDropAddress(int index) {
+  //   if (_dropLocations.length > 1) {
+  //     _dropLocations[index].dispose();
+  //     _dropLocations.removeAt(index);
+  //     updatedropAddressList();
+  //   }
+  // }
 
   void updatepickupAddressList() {
     pickaddressList = _pickupLocations.map((loc) => loc.toModel()).toList();

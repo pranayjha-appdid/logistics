@@ -14,12 +14,11 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-
-  PageController _pageController=PageController();
+  PageController _pageController = PageController();
 
   @override
   void dispose() {
-    _pageController.dispose(); // Dispose of the PageController when done
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -37,6 +36,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       );
     }
   }
+
   final List<OnboardingModel> onboardinglist = [
     OnboardingModel(Assets.imagesOnBoarding1, "On-Demand Logistics Made Easy",
         "Need to transport goods? Book a ride in seconds and get hassle-free delivery at your doorstep."),
@@ -50,7 +50,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
-    _currentPage = 0; // Set the initial page index
+    _currentPage = 0;
   }
 
   @override
@@ -90,10 +90,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         Text(
                           data.subtitle,
                           style: Theme.of(context).textTheme.displaySmall,
-                          // style: const TextStyle(
-                          //     fontFamily: "Poppins",
-                          //     fontSize: 13,
-                          //     fontWeight: FontWeight.w400),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -131,12 +127,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ]),
             ),
             CustomButton(
-              onTap:_onNext ,
+              onTap: _onNext,
               elevation: 0,
-              child: Text(
-                "Next",
-                style:TextStyle(color: Colors.white,fontSize: 14)
-              ),
+              title: "Next",
             )
           ],
         ),

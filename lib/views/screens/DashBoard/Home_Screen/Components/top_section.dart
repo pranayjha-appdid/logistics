@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logistics/services/route_helper.dart';
+import 'package:logistics/services/theme.dart';
 import '../../../../../generated/assets.dart';
 import '../../Location_Selection/drop_details.dart';
 import '../../Location_Selection/pick_up_details.dart';
@@ -123,7 +124,7 @@ class _TopSectionState extends State<TopSection> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
-        color: Color(0xff09596F),
+        color: primaryColor,
       ),
       child: SafeArea(
         child: Padding(

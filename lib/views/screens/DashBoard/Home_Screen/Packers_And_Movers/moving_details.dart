@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:logistics/controllers/location_controller.dart';
+import 'package:logistics/services/theme.dart';
 
 import '../../../../../generated/assets.dart';
 import '../../../../../services/route_helper.dart';
@@ -259,10 +260,10 @@ class _MovingDetailsState extends State<MovingDetails> {
                   height: 50,
                   decoration: BoxDecoration(
                     color: selectedOptionIndex == 0
-                        ? const Color(0xff09596F)
+                        ? primaryColor
                         : Colors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xff09596F)),
+                    border: Border.all(color: primaryColor),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -270,7 +271,7 @@ class _MovingDetailsState extends State<MovingDetails> {
                     style: TextStyle(
                       color: selectedOptionIndex == 0
                           ? Colors.white
-                          : const Color(0xff09596F),
+                          : primaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -289,10 +290,10 @@ class _MovingDetailsState extends State<MovingDetails> {
                   height: 50,
                   decoration: BoxDecoration(
                     color: selectedOptionIndex == 1
-                        ? const Color(0xff09596F)
+                        ? primaryColor
                         : Colors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xff09596F)),
+                    border: Border.all(color: primaryColor),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -300,7 +301,7 @@ class _MovingDetailsState extends State<MovingDetails> {
                     style: TextStyle(
                       color: selectedOptionIndex == 1
                           ? Colors.white
-                          : const Color(0xff09596F),
+                          : primaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -348,7 +349,7 @@ class _MovingDetailsState extends State<MovingDetails> {
                       isPickupLiftAvailable = value;
                     });
                   },
-                  activeColor: const Color(0xff09596F),
+                  activeColor: primaryColor,
                 )
               ],
             ),
@@ -383,7 +384,7 @@ class _MovingDetailsState extends State<MovingDetails> {
                       isDropLiftAvailable = value;
                     });
                   },
-                  activeColor: const Color(0xff09596F),
+                  activeColor: primaryColor,
                 )
               ],
             ),

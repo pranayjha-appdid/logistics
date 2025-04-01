@@ -1,5 +1,6 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/DashBoard/Home_Screen/Packers_And_Movers/review_packers_and_movers.dart';
 import 'add_items.dart';
@@ -46,6 +47,13 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -76,14 +84,14 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                 lineLength: 90,
                 lineType: LineType.dotted,
                 defaultLineColor: Colors.grey,
-                finishedLineColor: Color(0xFF09596F),
+                finishedLineColor: primaryColor,
               ),
               stepRadius: 20,
-              activeStepBorderColor: Color(0xFF09596F),
+              activeStepBorderColor: primaryColor,
               activeStepBackgroundColor: Colors.white,
-              activeStepTextColor: Color(0xFF09596F),
+              activeStepTextColor: primaryColor,
               finishedStepBackgroundColor: Colors.transparent,
-              finishedStepBorderColor: Color(0xFF09596F),
+              finishedStepBorderColor: primaryColor,
               finishedStepBorderType: BorderType.normal,
               borderThickness: 3,
               showStepBorder: true,
@@ -100,7 +108,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                       Icon(Icons.circle,
                           size: 24,
                           color: index <= activeStep
-                              ? Color(0xFF09596F)
+                              ? primaryColor
                               : Colors.grey),
                     ],
                   ),
@@ -120,7 +128,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: activeStep != 1
                 ? CustomButton(
                     onTap: nextStep,
@@ -149,7 +157,7 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                                           height: 80,
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                              color: Color(0xff09596F),
+                                              color: primaryColor,
                                               borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(25),
                                                   topRight:
@@ -241,10 +249,10 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
-                              color: const Color(0xff09596F),
+                              color:  primaryColor,
                               borderRadius: BorderRadius.circular(8),
                               border:
-                                  Border.all(color: const Color(0xff09596F)),
+                                  Border.all(color:  primaryColor),
                             ),
                             alignment: Alignment.center,
                             child: Text("Confirm Items",
