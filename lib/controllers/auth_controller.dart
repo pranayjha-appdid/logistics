@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -6,15 +7,19 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../data/api/api_checker.dart';
 import '../data/models/contact_number.dart';
+import '../data/models/response/business_settings.dart';
 import '../data/models/response/response_model.dart';
 import '../data/models/response/user_model.dart';
 import '../data/repositories/auth_repo.dart';
+import '../data/repositories/user_repo.dart';
 import '../services/constants.dart';
 import '../services/extensions.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepo authRepo;
-  AuthController({required this.authRepo});
+  final UserRepo userRepo;
+
+  AuthController({required this.userRepo, required this.authRepo});
 
   bool _isLoading = false;
   bool _acceptTerms = true;
@@ -28,54 +33,150 @@ class AuthController extends GetxController implements GetxService {
   bool get isLoading => _isLoading;
   bool get acceptTerms => _acceptTerms;
 
-
-
-  Future<ResponseModel> login(String? phone, {String? otp}) async {
+  Future<ResponseModel> login({required String phoneNo}) async {
     ResponseModel responseModel;
-    log("response.body.toString()${AppConstants.baseUrl}${AppConstants.loginUri}", name: "login");
+    _isLoading = true;
+    update();
+    log("response.body.toString()${AppConstants.baseUrl}${AppConstants.loginUri}",
+        name: "login");
     try {
-      Response response = await authRepo.login(await authRepo.getDeviceId(), phone: phone, otp: otp);
-      /*if(response.body.containsKey('errors')){
-        return ResponseModel(false, response.statusText!,response.body['errors']);
-      }*/
+      Response response = await userRepo.login(phone: phoneNo);
       log(response.statusCode.toString());
       log(response.body.toString());
+      if (response.statusCode == 200) {
+        log(response.body.toString());
+        if (response.body.containsKey('errors')) {
+          _isLoading = false;
+          update();
+          return ResponseModel(
+              false, response.statusText!, response.body['errors']);
+        }
+        if (response.body.containsKey('token')) {
+          authRepo.saveUserToken(response.body['token'].toString());
+        }
+        responseModel =
+            ResponseModel(true, '${response.body['msg']}', response.body);
+      } else {
+        responseModel = ResponseModel(false, response.statusText!);
+      }
+    } catch (e) {
+      responseModel = ResponseModel(false, "ERROR AT login()");
+      log('++++++++++++++++++++++++++++++++++++++++++++ ${e.toString()} +++++++++++++++++++++++++++++++++++++++++++++',
+          name: "ERROR AT login()");
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
+
+  String? userStatus;
+  Future<ResponseModel> verifyOTP(dynamic data) async {
+    _isLoading = true;
+    update();
+    ResponseModel responseModel;
+    try {
+      Response response = await userRepo.verifyOTP(data);
+      log(response.statusCode.toString());
+      log(response.body.toString(), name: "VerifyOtp");
       if (response.statusCode == 200) {
         log(response.body.toString());
 
         if (response.body.containsKey('errors')) {
           _isLoading = false;
           update();
-          return ResponseModel(false, response.statusText!, response.body['errors']);
+          return ResponseModel(
+              false, response.statusText!, response.body['errors']);
         }
         if (response.body.containsKey('token')) {
           authRepo.saveUserToken(response.body['token'].toString());
         }
-        responseModel = ResponseModel(true, '${response.body['msg']}', response.body);
+        // authRepo.saveUserType(jsonEncode(response.body['data']['type']));
+        if (response.body.containsKey('user_type')) {
+          userStatus = response.body['user_type'];
+          update();
+        }
+        responseModel =
+            ResponseModel(true, '${response.body['msg']}', response.body);
       } else {
-        responseModel = ResponseModel(false, response.statusText!);
+        responseModel = ResponseModel(false, response.body['message']);
       }
     } catch (e) {
-      responseModel = ResponseModel(false, "CATCH");
-      log('++++++++++++++++++++++++++++++++++++++++++++ ${e.toString()} +++++++++++++++++++++++++++++++++++++++++++++', name: "ERROR AT login()");
+      responseModel = ResponseModel(false, "Server Error!!");
+      log('++++++++++++++++++++++++++++++++++++++++++++ ${e.toString()} +++++++++++++++++++++++++++++++++++++++++++++',
+          name: "ERROR AT login()");
     }
     _isLoading = false;
-    // update();
+    update();
     return responseModel;
   }
 
+  Future<ResponseModel> logOutUser() async {
+    ResponseModel responseModel;
+    _isLoading = true;
+    update();
+    try {
+      Response response = await userRepo.logout();
+      if (response.statusCode == 200) {
+        log(response.bodyString!, name: "logOutUser");
+        responseModel = ResponseModel(true, 'success');
+      } else {
+        ApiChecker.checkApi(response);
+        responseModel = ResponseModel(false, "${response.statusText}");
+      }
+    } catch (e) {
+      log('---- ${e.toString()} ----', name: "ERROR AT logOutUser()");
+      responseModel = ResponseModel(false, "$e");
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> registerUser(dynamic data) async {
+    _isLoading = true;
+    update();
+    ResponseModel responseModel;
+    try {
+      Response response = await userRepo.registerUser(data);
+      if (response.statusCode == 200) {
+        log(response.bodyString.toString());
+        responseModel =
+            ResponseModel(true, '${response.body['msg']}', response.body);
+      } else {
+        responseModel = ResponseModel(false, response.body['message']);
+      }
+    } catch (e) {
+      responseModel = ResponseModel(false, "ERROR AT registerUser()!");
+      log('++++++++++++++++++++++++++++++++++++++++++++ ${e.toString()} +++++++++++++++++++++++++++++++++++++++++++++',
+          name: "ERROR AT addClient()");
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  void clearTextField() {
+    numberController.clear();
+    otpController.clear();
+    authRepo.clearSharedData();
+    update();
+  }
+
   Future<ResponseModel> getUserProfileData() async {
+    log("getUserProfileData called");
+
     ResponseModel responseModel;
     _isLoading = true;
     try {
       Response response = await authRepo.getUser();
-      // log(response.bodyString ?? "NULL", name: "UserModel");
-      // log(response.statusCode.toString(), name: "statusCode");
+
       if (response.statusCode == 200) {
-        log(response.bodyString!, name: "UserModel");
-        // log(response.statusCode.toString(), name: "statusCode");
-        _userModel = userModelFromJson(response.bodyString!);
-        authRepo.saveUserId('${_userModel!.user.id}');
+        log(response.bodyString.toString(), name: "getUserProfileData");
+        _userModel = userModelFromJson(jsonEncode(response.body['data']));
+
+        log(_userModel.toString(), name: "UserModel Data");
+
         update();
         responseModel = ResponseModel(true, 'success');
       } else {
@@ -87,6 +188,38 @@ class AuthController extends GetxController implements GetxService {
       responseModel = ResponseModel(false, "$e");
     }
 
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  List<BusinessSettings> businessSettings = [];
+
+  Future<ResponseModel> getBusinessSettings() async {
+    ResponseModel responseModel;
+    _isLoading = true;
+    update();
+    log("response.body.toString()${AppConstants.baseUrl}${AppConstants.businessSettings}",
+        name: "getBusinessSettings");
+    try {
+      Response response = await userRepo.getBusinessSettings();
+      log(response.statusCode.toString());
+      log(jsonEncode(response.body), name: "getBusinessSettings");
+      if (response.statusCode == 200) {
+        businessSettings =
+            businessSettingsFromJson(jsonEncode(response.body['data']));
+        log('responseBusiness ${jsonEncode(response.body['data'])}',
+            name: "Business data body");
+        log(businessSettings[4].key!);
+        responseModel = ResponseModel(true, '${response.body}', response.body);
+      } else {
+        responseModel = ResponseModel(false, '${response.body}', response.body);
+      }
+    } catch (e) {
+      responseModel = ResponseModel(false, "CATCH");
+      log('++++ ${e.toString()} +++++++',
+          name: "ERROR AT getBusinessSettings()");
+    }
     _isLoading = false;
     update();
     return responseModel;
@@ -115,11 +248,9 @@ class AuthController extends GetxController implements GetxService {
 
   bool checkUserData() {
     try {
-      if (_userModel!.user.name.isValid &&
-          _userModel!.user.phone.isValid &&
-          _userModel!.user.company.isValid &&
-          _userModel!.user.dob.isNotNull &&
-          _userModel!.user.gender.isValid) {
+      if (_userModel!.name.isValid && _userModel!.phone.isValid
+          // && _userModel!.email.isValid
+          ) {
         return true;
       } else {
         return false;
@@ -127,12 +258,5 @@ class AuthController extends GetxController implements GetxService {
     } catch (e) {
       return false;
     }
-  }
-
-  bool isAdmin() {
-    if (_userModel?.user.isAdmin == '1') {
-      return true;
-    }
-    return false;
   }
 }

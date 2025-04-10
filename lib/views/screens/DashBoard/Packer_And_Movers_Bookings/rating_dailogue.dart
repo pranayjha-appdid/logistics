@@ -42,7 +42,7 @@ class _RatingDialogState extends State<RatingDialog> {
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(10),
-              ), //const Color(0xFFF2F2F2),
+              ),
             ),
             const SizedBox(height: 10),
             Text(

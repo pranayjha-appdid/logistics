@@ -9,7 +9,7 @@ import '../../../../../generated/assets.dart';
 import '../../Packer_And_Movers_Bookings/packer_and_mover_bookings.dart';
 
 class BookingPlacedPage extends StatefulWidget {
-  final bool? ispakerandmover; // Keep it nullable
+  final bool? ispakerandmover;
 
   const BookingPlacedPage({Key? key, this.ispakerandmover}) : super(key: key);
 
@@ -39,7 +39,7 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
         if (_remainingTime > 0) {
           setState(() {
             _remainingTime--;
-            _progress = _remainingTime / (15 * 60); // Update progress
+            _progress = _remainingTime / (15 * 60);
           });
         } else {
           timer.cancel();
@@ -94,8 +94,8 @@ class _BookingPlacedPageState extends State<BookingPlacedPage> {
                       child: CircularProgressIndicator(
                         value: _progress,
                         strokeWidth: 10,
-                        backgroundColor: Colors.white, // Initial color
-                        valueColor: AlwaysStoppedAnimation<Color>(primaryColor), // Changes to white
+                        backgroundColor: Colors.white,
+                        valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                       ),
                     ),
                     Text(

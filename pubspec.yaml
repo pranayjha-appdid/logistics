@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.1 <4.0.0'
+  sdk: '>=3.3.4 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -41,7 +41,7 @@ dependencies:
   google_fonts: ^6.2.1
   intl: ^0.20.2
   shared_preferences:
-  flutter_inappwebview: ^6.0.0
+#  flutter_inappwebview: 6.0.0
   url_launcher: ^6.3.1
   fluttertoast: ^8.2.12
   cached_network_image: ^3.4.1
@@ -57,6 +57,10 @@ dependencies:
   easy_stepper: ^0.8.5+1
   timelines_plus:
   dotted_border: ^2.1.0
+  file_picker:
+  sms_autofill:
+  flutter_widget_from_html:
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

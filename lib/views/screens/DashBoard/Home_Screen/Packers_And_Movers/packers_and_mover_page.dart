@@ -217,9 +217,9 @@ class _PackersAndMoverPageState extends State<PackersAndMoverPage> {
                               padding: const EdgeInsets.only(left: 20.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment
-                                    .center, // Center the column vertically
+                                    .center,
                                 crossAxisAlignment: CrossAxisAlignment
-                                    .start, // Align text to the left
+                                    .start,
                                 children: [
                                   Text(
                                     "4 Items added",

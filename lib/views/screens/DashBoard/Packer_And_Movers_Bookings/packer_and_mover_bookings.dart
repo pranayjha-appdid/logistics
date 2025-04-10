@@ -67,7 +67,7 @@ class _PackerAndMoverBookingsState extends State<PackerAndMoverBookings> {
                             child: Transform.flip(
                               flipX: true,
                               child: Opacity(
-                                opacity: 0.54, // 60% opacity
+                                opacity: 0.54,
                                 child: Image.asset(
                                   Assets.imagesTruckpackers,
                                   fit: BoxFit.cover,
@@ -109,7 +109,7 @@ class _PackerAndMoverBookingsState extends State<PackerAndMoverBookings> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Booking Info
+
                               Padding(
                                 padding: const EdgeInsets.only(top: 10.0),
                                 child: Row(
@@ -161,13 +161,13 @@ class _PackerAndMoverBookingsState extends State<PackerAndMoverBookings> {
                                 child: Row(
                                   children: [
                                     _buildStep(
-                                        true, Color(0xFFFDAA43)), // Active Step
+                                        true, Color(0xFFFDAA43)),
                                     _buildLine(Color(0xFFFDAA43)),
                                     _buildStep(
-                                        false, Colors.black), // Inactive Step
+                                        false, Colors.black),
                                     _buildLine(Colors.black),
                                     _buildStep(
-                                        false, Colors.black), // Inactive Step
+                                        false, Colors.black),
                                   ],
                                 ),
                               ),

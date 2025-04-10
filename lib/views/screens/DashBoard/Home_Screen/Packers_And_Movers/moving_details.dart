@@ -119,9 +119,9 @@ class _MovingDetailsState extends State<MovingDetails> {
                                   shape: BoxShape.circle,
                                   color: step["isPickUp"] == true
                                       ? const Color(
-                                          0xFF00C060) // Pickup color (green)
+                                          0xFF00C060)
                                       : const Color(
-                                          0xFFEB0404), // Drop-off color (red)
+                                          0xFFEB0404),
                                 ),
                                 child: Icon(
                                   isFirst || isLast

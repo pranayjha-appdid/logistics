@@ -2,7 +2,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:logistics/services/route_helper.dart';
 import 'package:logistics/views/screens/DashBoard/Packer_And_Movers_Bookings/booking_details.dart';
-
 import '../../../../data/models/dummydata.dart';
 import '../../../../data/models/response/booking_model.dart';
 
@@ -63,14 +62,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                     ?.copyWith(fontSize: 15),
                               ),
                             ),
-                            // Status Badge
                             Container(
                               width: 120,
                               height: 35,
                               decoration: BoxDecoration(
                                   color: booking.submit
-                                      ? const Color(0xff163DFF) // Submitted (blue)
-                                      : const Color(0xffFF4654), // Pending (red)
+                                      ? const Color(0xff163DFF)
+                                      : const Color(0xffFF4654),
                                   borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(10),
                                       bottomLeft: Radius.circular(10))),
@@ -96,7 +94,6 @@ class _BookingScreenState extends State<BookingScreen> {
                       ),
                       const SizedBox(height: 8),
 
-                      // Vehicle Number
                       Container(
                         width: double.infinity,
                         color: const Color(0xffF6F6F6),
@@ -110,7 +107,6 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                       ),
 
-                      // Locations List
                       Container(
                         padding: const EdgeInsets.only(
                             left: 8.0, right: 4.0, top: 8.0, bottom: 16.0),
@@ -130,7 +126,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    // Pickup/Drop-off Icon
                                     Container(
                                       margin: const EdgeInsets.only(top: 4),
                                       width: isFirst || isLast ? 40 : 20,
@@ -138,8 +133,8 @@ class _BookingScreenState extends State<BookingScreen> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: location.isPickUp
-                                            ? const Color(0xFF00C060) // Pickup (green)
-                                            : const Color(0xFFEB0404), // Drop-off (red)
+                                            ? const Color(0xFF00C060)
+                                            : const Color(0xFFEB0404),
                                       ),
                                       child: Icon(
                                         isFirst || isLast
@@ -150,7 +145,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                       ),
                                     ),
 
-                                    // Dotted Line (if not last item)
                                     if (!isLast)
                                       SizedBox(
                                         width: 40,
@@ -171,7 +165,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                 ),
                                 const SizedBox(width: 14),
 
-                                // Address Text
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
@@ -203,7 +196,6 @@ class _BookingScreenState extends State<BookingScreen> {
                         color: Color(0xffF6F6F6),
                       ),
 
-                      // Booking Date & Delivery Date
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),

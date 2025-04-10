@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:logistics/services/route_helper.dart';
+import 'package:logistics/views/screens/DashBoard/Home_Screen/Goods/goods.dart';
+import 'package:logistics/views/screens/MyProfile/my_profile_screen.dart';
 
+import '../../../controllers/auth_controller.dart';
+import '../../../generated/assets.dart';
 import '../Other_Screen/review_and_rating.dart';
+import '../splash_screen/splash_screen.dart';
 import 'Packer_And_Movers_Bookings/packer_and_mover_bookings.dart';
+import 'business_setting/html_widget_screen.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
@@ -23,7 +32,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 15),
         child: Row(
           children: [
-            Icon(icon, size: 24),
+            Icon(
+              icon,
+              size: 26,
+              color: Colors.grey.shade600,
+            ),
             const SizedBox(
               width: 16,
             ),
@@ -33,10 +46,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: Colors.black, fontSize: 15),
+                    ?.copyWith(color: Color(0xff626161), fontSize: 14),
               ),
             ),
-            Icon(Icons.arrow_forward)
           ],
         ),
       ),
@@ -45,7 +57,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Drawer(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Scaffold(
@@ -53,55 +64,122 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
+                        horizontal: 10, vertical: 20),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          color: Colors.white,
-                          width: size.width,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.arrow_back),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              SizedBox(
-                                width: size.width * 0.15,
-                              ),
-                              Text(
-                                'Menu',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .copyWith(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                            ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: AssetImage(Assets.imagesUser),
+                              backgroundColor: Colors.transparent,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  Get.find<AuthController>().userModel!.name!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                ),
+                                Text(
+                                  Get.find<AuthController>().userModel!.phone!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(
+                                        color: Color(0xff626161),
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+
+                        Divider(
+                          color: Color(0xffDAD9D9),
+                        ),
+                        // _MenuContentContainer(
+                        //     title: "My Profile",
+                        //     icon: Icons.account_circle_outlined,
+                        //     onTap: () {}),
+                        // _MenuContentContainer(
+                        //     title: "My Bookings",
+                        //     icon: Icons.bookmark_outline,
+                        //     onTap: () {}),
+                        _MenuContentContainer(
+                            title: "Home",
+                            icon: Icons.home_outlined,
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+
+                        _MenuContentContainer(
+                            title: "Profile",
+                            icon: Icons.account_circle_outlined,
+                            onTap: () {
+                              // Navigator.pop(context);
+                              Navigator.push(context,
+                                  getCustomRoute(child: MyProfileScreen()));
+                            }),
+
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, bottom: 8.0, top: 8.0),
+                          child: Text(
+                            "Services",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300,
+                                ),
                           ),
                         ),
                         Divider(
-                          color: Color(0xff787878),
+                          color: Color(0xffDAD9D9),
                         ),
                         _MenuContentContainer(
-                            title: "My Profile",
-                            icon: Icons.account_circle_outlined,
-                            onTap: () {}),
+                            title: "Two Wheeler",
+                            icon: Icons.two_wheeler_outlined,
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
                         _MenuContentContainer(
-                            title: "My Bookings",
-                            icon: Icons.bookmark_outline,
-                            onTap: () {}),
+                            title: "Truck",
+                            icon: Icons.local_shipping_outlined,
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
                         _MenuContentContainer(
                             title: "Packers and Movers",
-                            icon: Icons.fire_truck_outlined,
+                            icon: Icons.all_inbox,
                             onTap: () {
                               Navigator.pop(context);
                               Navigator.push(
@@ -110,33 +188,115 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                                       child: PackerAndMoverBookings()));
                             }),
                         _MenuContentContainer(
-                            title: "Review & Ratings",
-                            icon: Icons.star_outline,
+                            title: "Goods",
+                            icon: Icons.category,
                             onTap: () {
                               Navigator.pop(context);
-                              Navigator.push(context,
-                                  getCustomRoute(child: ReviewAndRating()));
+                              Navigator.push(
+                                  context, getCustomRoute(child: Goods()));
                             }),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, bottom: 8.0, top: 8.0),
+                          child: Text(
+                            "Others",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                          ),
+                        ),
+                        Divider(
+                          color: Color(0xffDAD9D9),
+                        ),
+
                         _MenuContentContainer(
-                            title: "Term And Condition",
-                            icon: Icons.description_outlined,
-                            onTap: () {}),
+                          title: "Term And Condition",
+                          icon: Icons.description,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                getCustomRoute(
+                                    child: HtmlWidgetPage(
+                                  title: 'Term And Condition',
+                                  htmlContent: Get.find<AuthController>()
+                                          .businessSettings
+                                          .firstWhereOrNull((element) =>
+                                              element.key ==
+                                              "terms_and_condition")
+                                          ?.value ??
+                                      "",
+                                )));
+                          },
+                        ),
+
                         _MenuContentContainer(
-                            title: "Privacy policy",
-                            icon: Icons.public,
-                            onTap: () {}),
+                          title: "Privacy policy",
+                          icon: Icons.security,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                getCustomRoute(
+                                    child: HtmlWidgetPage(
+                                  title: 'Privacy policy',
+                                  htmlContent: Get.find<AuthController>()
+                                          .businessSettings
+                                          .firstWhereOrNull((element) =>
+                                              element.key == "privacy_policy")
+                                          ?.value ??
+                                      "",
+                                )));
+                          },
+                        ),
+
                         _MenuContentContainer(
-                            title: "About Us",
-                            icon: Icons.search_rounded,
-                            onTap: () {}),
+                          title: "About Us",
+                          icon: Icons.info_outline,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                getCustomRoute(
+                                    child: HtmlWidgetPage(
+                                  title: 'About Us',
+                                  htmlContent: Get.find<AuthController>()
+                                          .businessSettings
+                                          .firstWhereOrNull((element) =>
+                                              element.key == "about_us")
+                                          ?.value ??
+                                      "",
+                                )));
+                          },
+                        ),
                         _MenuContentContainer(
-                            title: "Support",
-                            icon: Icons.book_outlined,
-                            onTap: () {}),
-                        _MenuContentContainer(
-                            title: "Help & Support",
-                            icon: Icons.help_outline,
-                            onTap: () {}),
+                          title: "Support",
+                          icon: Icons.support_agent_outlined,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                getCustomRoute(
+                                    child: HtmlWidgetPage(
+                                  title: 'Support',
+                                  htmlContent: Get.find<AuthController>()
+                                          .businessSettings
+                                          .firstWhereOrNull((element) =>
+                                              element.key == "contact_us")
+                                          ?.value ??
+                                      "",
+                                )));
+                          },
+                        ),
+                        // _MenuContentContainer(
+                        //     title: "Help & Support",
+                        //     icon: Icons.help_outline,
+                        //     onTap: () {}),
                       ],
                     ),
                   ),
@@ -149,36 +309,58 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 4),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    color: Colors.transparent,
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.arrow_back,
-                          color: Colors.red,
-                          size: 24,
-                        ),
-                        const SizedBox(
-                          width: 14,
-                        ),
-                        Text(
-                          "Log Out",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                color: Colors.red,
-                                fontSize: 14,
-                              ),
-                        )
-                      ],
+                GetBuilder<AuthController>(builder: (auth) {
+                  return GestureDetector(
+                    onTap: () async {
+                      await auth.logOutUser().then((value) {
+                        if (value.isSuccess) {
+                          auth.clearTextField();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SplashScreen()),
+                              (route) => false);
+                        } else {
+                          auth.clearTextField();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SplashScreen()),
+                              (route) => false);
+                          // Fluttertoast.showToast(msg: 'Somthing went Wrong');
+                        }
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      color: Colors.transparent,
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.arrow_back,
+                            color: Colors.red,
+                            size: 24,
+                          ),
+                          const SizedBox(
+                            width: 14,
+                          ),
+                          Text(
+                            "Log Out",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  color: Colors.red,
+                                  fontSize: 14,
+                                ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }),
                 SizedBox(
                   height: 5,
                 ),

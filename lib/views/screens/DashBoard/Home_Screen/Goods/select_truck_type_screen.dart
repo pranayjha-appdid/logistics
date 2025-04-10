@@ -219,9 +219,6 @@ class _SelectTruckTypeScreenState extends State<SelectTruckTypeScreen> {
                                       fontSize: 16),
                             ),
                           ),
-                          // if (Get.find<SelectTruckTypeController>()
-                          //         .selectedGoodsType ==
-                          //     null)
                           const Icon(
                             Icons.expand_more,
                             color: Color(0xff7E7E7E),
@@ -330,7 +327,7 @@ class _TrcukDetailsState extends State<TrcukDetails> {
                               color: selectedIndex == index
                                   ? primaryColor
                                   : Colors
-                                      .white, // Change color based on selection
+                                      .white,
                             ),
                             padding: const EdgeInsets.only(right: 8),
                             height: 70,

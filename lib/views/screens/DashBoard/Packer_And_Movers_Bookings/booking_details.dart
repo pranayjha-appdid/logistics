@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logistics/services/route_helper.dart';
@@ -13,6 +11,7 @@ class BookingDetails extends StatefulWidget {
   @override
   State<BookingDetails> createState() => _BookingDetailsState();
 }
+
 
 class _BookingDetailsState extends State<BookingDetails> {
   final List<Map<String, dynamic>> trackingDetails = [
@@ -247,7 +246,6 @@ class _BookingDetailsState extends State<BookingDetails> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Use the formatted booking date here
                   Text(
                     formatDate(bookingDate),
                     style: Theme.of(context)

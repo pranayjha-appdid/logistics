@@ -22,13 +22,13 @@ class _MidSectionState extends State<MidSection> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: bgcolor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4,
-            offset: Offset(2, 2),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.black26,
+        //     blurRadius: 4,
+        //     offset: Offset(2, 2),
+        //   ),
+        // ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -60,7 +60,7 @@ class _MidSectionState extends State<MidSection> {
       crossAxisCount: 2,
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(left: 16,right: 16.0,bottom: 16.0),
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
@@ -85,13 +85,13 @@ class _MidSectionState extends State<MidSection> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: const Color(0xffFFA538),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 4,
-                  offset: Offset(2, 2),
-                ),
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Colors.black26,
+              //     blurRadius: 4,
+              //     offset: Offset(2, 2),
+              //   ),
+              // ],
             ),
             child: Stack(
               children: [

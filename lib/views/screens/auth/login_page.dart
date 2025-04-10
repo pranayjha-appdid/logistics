@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:logistics/services/theme.dart';
 import 'package:logistics/views/base/common_button.dart';
 import 'package:logistics/views/screens/auth/otp_verification_page.dart';
-
+import '../../../controllers/auth_controller.dart';
 import '../../../services/input_decoration.dart';
 import '../../../services/route_helper.dart';
+import '../DashBoard/business_setting/html_widget_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,7 +22,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _phoneController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,30 +42,43 @@ class _LoginPageState extends State<LoginPage> {
                     .copyWith(fontWeight: FontWeight.normal),
               ),
               SizedBox(height: 25),
-              TextFormField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: CustomDecoration.inputDecoration(
-                  floating: true,
-                  label: 'Mobile Number',
-                  icon: Icon(
-                    Icons.phone_in_talk_outlined,
-                    size: 19,
-                    color: Color(0xFF130F26),
+              Form(
+                key: _formKey, // Step 2: Assign formKey
+                child: TextFormField(
+                  controller: Get.find<AuthController>().numberController,
+                  keyboardType: Platform.isIOS
+                      ? const TextInputType.numberWithOptions(
+                      signed: true, decimal: true)
+                      : TextInputType.number,
+                  decoration: CustomDecoration.inputDecoration(
+                    floating: true,
+                    label: 'Mobile Number',
+                    icon: Icon(
+                      Icons.phone_in_talk_outlined,
+                      size: 19,
+                      color: Color(0xFF130F26),
+                    ),
+                    hint: 'Enter your mobile number',
                   ),
-                  hint: 'Enter your mobile number',
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length != 10) {
+                      return 'Please enter a valid 10-digit number';
+                    }
+                    return null;
+                  },
                 ),
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
               ),
               SizedBox(height: 25),
+              // (unchanged) Terms and Conditions Text
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text:
-                      'By tapping next you\'re creating an account and you agree to the ',
+                  'By tapping next you\'re creating an account and you agree to the ',
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -69,54 +87,83 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(
                       text: 'Terms & conditons',
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.normal,
-                            color: primaryColor,
-                            decoration: TextDecoration.underline,
-                          ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                        fontWeight: FontWeight.normal,
+                        color: primaryColor,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()..onTap = () {
+                        Navigator.push(
+                            context,
+                            getCustomRoute(
+                                child: HtmlWidgetPage(
+                                  title: 'Terms And Conditions',
+                                  htmlContent: Get.find<AuthController>()
+                                      .businessSettings
+                                      .firstWhereOrNull((element) =>
+                                  element.key == "terms_and_condition")
+                                      ?.value ??
+                                      "",
+                                )));
+
+                      },
                     ),
                     TextSpan(
                       text: ' and acknowledge ',
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.normal,
-                          ),
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                     TextSpan(
                       text: 'Privacy policy',
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.normal,
-                            color: primaryColor,
-                            decoration: TextDecoration.underline,
-                          ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                        fontWeight: FontWeight.normal,
+                        color: primaryColor,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()..onTap = () {
+                        Navigator.push(
+                            context,
+                            getCustomRoute(
+                                child: HtmlWidgetPage(
+                                  title: 'Privacy Policy',
+                                  htmlContent: Get.find<AuthController>()
+                                      .businessSettings
+                                      .firstWhereOrNull((element) =>
+                                  element.key == "privacy_policy")
+                                      ?.value ??
+                                      "",
+                                )));
+
+                      },
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 50),
-              CustomButton(
-                onTap: () {
-                  if (_phoneController.text.length == 10) {
-                    Navigator.push(
-                      context,
-                      getCustomRoute(child: OtpVerificationPage()),
-                    );
-                  } else {
-                    Fluttertoast.showToast(
-                        msg: "Enter Correct Mobile Number",
-                        toastLength: Toast.LENGTH_SHORT,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.white,
-                        textColor: Colors.black,
-                        fontSize: 16.0);
-                  }
+              GetBuilder<AuthController>(
+                builder: (auth) {
+                  return CustomButton(
+                    isLoading: auth.isLoading,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        auth
+                            .login(phoneNo: auth.numberController.text)
+                            .then((value) {
+                          if (value.isSuccess) {
+                            Navigator.push(
+                              context,
+                              getCustomRoute(child: OtpVerificationPage()),
+                            );
+                          } else {
+                            Fluttertoast.showToast(msg: value.message);
+                          }
+                        });
+                      }
+                    },
+                    title: "Next",
+                  );
                 },
-                title: "Next",
-                // child: Text(
-                //   "Next",
-                //   style: TextStyle(color: Colors.white, fontSize: 14),
-                // ),
-              )
+              ),
             ],
           ),
         ),

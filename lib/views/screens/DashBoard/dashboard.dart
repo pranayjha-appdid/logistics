@@ -6,7 +6,6 @@ import 'Home_Screen/home_screen.dart';
 
 class Dashboard extends StatefulWidget {
   final int initialIndex;
-
   const Dashboard({Key? key, this.initialIndex = 0}) : super(key: key);
 
   @override
@@ -22,7 +21,7 @@ class _DashboardState extends State<Dashboard> {
       scaffoldKey: _scaffoldKey,
     ),
     BookingScreen(),
-    MyProfileScreen(),
+    // MyProfileScreen(),
   ];
 
   late int idx;
@@ -70,13 +69,13 @@ class _DashboardState extends State<Dashboard> {
               ),
               label: "Bookings",
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline_rounded,
-                color: idx == 2 ? Theme.of(context).primaryColor : Colors.grey,
-              ),
-              label: "Profile",
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.person_outline_rounded,
+            //     color: idx == 2 ? Theme.of(context).primaryColor : Colors.grey,
+            //   ),
+            //   label: "Profile",
+            // ),
           ],
         ),
       ),

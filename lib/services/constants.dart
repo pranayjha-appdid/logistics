@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
@@ -35,18 +36,32 @@ String getStringFromList(List<dynamic>? data) {
 
 class AppConstants {
   String get getBaseUrl => baseUrl;
-  set setBaseUrl(String url) => baseUrl = url;
 
-  //TODO: Change Base Url
-  static String baseUrl = 'https://www.base-url.in/';
-  // static String baseUrl = 'http://192.168.1.5:9000/'; ///USE FOR LOCAL
-  //TODO: Change Base Url
-  static String appName = 'App Name';
+  static bool isProductionMode = true;
+  static String get baseUrl {
+    if (!kDebugMode || isProductionMode) return 'https://transport.appdid.com/';
+    return 'http://192.168.1.23:8000/';
+  }
+
+
+  static String appName = 'TRANSPORT';
+  static String googleMapAndroidKey = 'AIzaSyCPMgv3duvS967kagdXKvcn0eD72L3sdF4';
 
   static const String agoraAppId = 'c87b710048c049f59570bd1895b7e561';
 
-  static const String loginUri = 'api/v1/user/login';
-  static const String profileUri = 'api/v1/user/profile';
+  static const String loginUri = 'api/user/v1/auth/otp/send';
+  static const String verifyOtp = 'api/user/v1/auth/otp/verify';
+
+  static const String logOutUri = 'api/user/v1/auth/logout';
+  static const String registerUri = 'api/user/v1/auth/register';
+  static const String profileUri = 'api/user/v1/basic/profile';
+  static const String banner = 'api/user/v1/basic/banners';
+
+
+
+  static const String businessSettings = 'api/v1/settings';
+
+
   static const String extras = 'api/v1/extra';
 
   // Shared Key

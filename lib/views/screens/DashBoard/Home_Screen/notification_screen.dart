@@ -13,7 +13,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       {required String title,
       required String subtitle,
       required DateTime time}) {
-    String formattedTime = DateFormat('h:mm a').format(time); // Format to AM/PM
+    String formattedTime = DateFormat('h:mm a').format(time);
 
     return Container(
       child: Column(
@@ -60,7 +60,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           SizedBox(height: 5),
           Align(
             alignment: Alignment.bottomRight,
-            child: Text(formattedTime), // Display formatted time
+            child: Text(formattedTime),
           ),
           SizedBox(height: 20),
         ],

@@ -1,6 +1,4 @@
-// To parse this JSON data, do
-//
-//     final userModel = userModelFromJson(jsonString);
+
 
 import 'dart:convert';
 
@@ -8,88 +6,70 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
-List<UserData> usersListFromJson(String str) => List<UserData>.from(json.decode(str).map((x) => UserData.fromJson(x)));
-
 class UserModel {
+  int? id;
+  String? name;
+  String? email;
+  String? phone;
+  String? companyName;
+  String? gstNumber;
+  String? gstCertificate;
+  String? msmeCertificate;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
   UserModel({
-    required this.user,
-  });
-
-  UserData user;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        user: UserData.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "user": user.toJson(),
-      };
-}
-
-class UserData {
-  UserData({
     this.id,
     this.name,
-    this.image,
     this.email,
     this.phone,
-    this.gender,
-    this.dob,
-    this.deviceId,
+    this.companyName,
+    this.gstNumber,
+    this.gstCertificate,
+    this.msmeCertificate,
     this.status,
-    this.company,
-    this.isAdmin,
-    this.emailVerifiedAt,
     this.createdAt,
     this.updatedAt,
   });
 
-  int? id;
-  String? name;
-  String? image;
-  String? email;
-  String? phone;
-  String? company;
-  String? gender;
-  DateTime? dob;
-  String? deviceId;
-  String? isAdmin;
-  String? status;
-  DateTime? emailVerifiedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-
-  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
-        id: json["id"],
-        name: json["name"] ?? '',
-        image: json["image"] ?? '',
-        email: json["email"] ?? '',
-        phone: json["phone"] ?? '',
-        gender: json["gender"] ?? '',
-        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
-        status: json["status"] ?? '',
-        deviceId: json["device_id"] ?? '',
-        company: json["company"] ?? '',
-        isAdmin: json["isAdmin"] ?? '',
-        emailVerifiedAt: json["email_verified_at"] == null ? null : DateTime.parse(json["email_verified_at"]),
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-      );
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+    id: json["id"],
+    name: json["name"],
+    email: json["email"],
+    phone: json["phone"],
+    companyName: json["company_name"],
+    gstNumber: json["gst_number"],
+    gstCertificate: json["gst_certificate"],
+    msmeCertificate: json["msme_certificate"],
+    status: json["status"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "company": company,
-        "image": image,
-        "email": email,
-        "phone": phone,
-        "gender": gender,
-        "dob": dob?.toIso8601String(),
-        "isAdmin": isAdmin,
-        "email_verified_at": emailVerifiedAt?.toIso8601String(),
-        "device_id": deviceId,
-        "status": status,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-      };
+    "id": id,
+    "name": name,
+    "email": email,
+    "phone": phone,
+    "company_name": companyName,
+    "gst_number": gstNumber,
+    "gst_certificate": gstCertificate,
+    "msme_certificate": msmeCertificate,
+    "status": status,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
+
+  @override
+  String toString() {
+    return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, '
+        'companyName: $companyName, gstNumber: $gstNumber, '
+        'gstCertificate: $gstCertificate, msmeCertificate: $msmeCertificate, '
+        'status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
 }
+
+
+
